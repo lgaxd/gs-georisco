@@ -1,3 +1,17 @@
+:root {
+    /* Paleta de cores */
+    --color-night: #0F0F0F;
+    --color-jet: #2A2929;
+    --color-blackol: #444342;
+    --color-jonquil: #FFD000;
+    --color-selecty: #FFB700;
+
+    /* Neutros */
+    --gray-light: #f7f7f7;
+    --gray-border: #ccc;
+    --gray-hover: #e6e6e6;
+}
+
 /* reset + box-sizing */
 *,
 *::before,
@@ -10,9 +24,10 @@
 /* body/layout */
 body {
     font-family: Arial, sans-serif;
-    background: #f7f7f7;
+    background: var(--gray-light);
     display: flex;
     min-height: 100vh;
+    color: var(--color-jet);
 }
 
 /* Sidebar */
@@ -22,7 +37,7 @@ nav#sidebar {
     left: -220px;
     width: 220px;
     height: 100%;
-    background: #0071bc;
+    background: var(--color-night);
     color: #fff;
     padding-top: 60px;
     transition: left .3s;
@@ -33,14 +48,6 @@ nav#sidebar.open {
     left: 0;
 }
 
-nav#sidebar ul {
-    list-style: none;
-}
-
-nav#sidebar li+li {
-    margin-top: .5rem;
-}
-
 nav#sidebar a {
     display: block;
     padding: .75rem 1rem;
@@ -49,10 +56,10 @@ nav#sidebar a {
 }
 
 nav#sidebar a:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--color-blackol);
 }
 
-/* Overlay when sidebar open */
+/* Overlay */
 #overlay {
     position: fixed;
     top: 0;
@@ -79,7 +86,7 @@ header {
     width: 100%;
     height: 60px;
     background: #fff;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--gray-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -87,9 +94,16 @@ header {
     z-index: 9;
 }
 
-header .site-title {
-    color: #0071bc;
-    font-size: 1.2rem;
+.site-title img.logo-img {
+    height: 40px;
+    display: block;
+}
+
+header {
+    background: var(--color-night);
+    /* preto para contraste com a logo branca */
+    height: 70px;
+    /* se precisar mais altura */
 }
 
 .icon-btn {
@@ -97,6 +111,7 @@ header .site-title {
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: var(--color-jet);
 }
 
 /* Profile dropdown */
@@ -109,12 +124,12 @@ header .site-title {
     top: 2.5rem;
     right: 0;
     background: #fff;
-    list-style: none;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gray-border);
     border-radius: 4px;
     display: none;
-    min-width: 120px;
+    min-width: 140px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
 }
 
 .dropdown.show {
@@ -124,18 +139,17 @@ header .site-title {
 .dropdown li a {
     display: block;
     padding: .5rem 1rem;
-    color: #333;
+    color: var(--color-jet);
     text-decoration: none;
 }
 
 .dropdown li a:hover {
-    background: #f0f0f0;
+    background: var(--gray-hover);
 }
 
-/* Main content shifts right when sidebar open */
+/* Main content shift */
 main {
     margin-top: 60px;
-    /* header height */
     padding: 1rem;
     flex: 1;
     transition: margin-left .3s;
@@ -145,102 +159,28 @@ nav#sidebar.open~main {
     margin-left: 220px;
 }
 
-/* Incident form */
-#form-incidente {
+/* Filter */
+.filter-container {
     max-width: 600px;
     margin: 1rem auto;
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-#form-incidente input,
-#form-incidente textarea {
-    width: 100%;
-    margin-bottom: .5rem;
-    padding: .6rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: inherit;
-}
-
-#form-incidente button,
-.card-incidente button {
-    background: #0071bc;
-    color: #fff;
-    border: none;
-    padding: .6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#form-incidente button:hover {
-    background: #005f9e;
-}
-
-/* Incident cards */
-.card-incidente {
-    background: #fff;
-    margin: 1rem auto;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-}
-
-.card-incidente img {
-    max-width: 100%;
-    border-radius: 4px;
-    margin: .5rem 0;
-}
-
-.card-incidente ul {
-    padding-left: 1rem;
-    margin-top: .5rem;
-}
-
-.card-incidente form {
     display: flex;
+    align-items: center;
     gap: .5rem;
-    margin-top: .75rem;
 }
 
-.card-incidente form input {
+.filter-container label {
+    font-weight: bold;
+    color: var(--color-blackol);
+}
+
+.filter-container select {
+    padding: .5rem;
+    border-radius: 4px;
+    border: 1px solid var(--gray-border);
     flex: 1;
 }
 
-.card-incidente form button {
-    flex-shrink: 0;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    header .site-title {
-        display: none;
-    }
-}
-
-.btn-close-sidebar {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    color: #fff;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.card-incidente input {
-    width: 100%;
-    padding: .6rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: inherit;
-}
-
-/* Estilo dos botões de ação */
+/* Action buttons */
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -249,35 +189,25 @@ nav#sidebar.open~main {
 }
 
 .btn-action {
-    padding: 0.6rem 1rem;
-    background: #0071bc;
-    color: #fff;
-    border: none;
+    padding: .75rem 1.5rem;
+    background: var(--color-jonquil);
+    color: var(--color-night);
+    border: 2px solid var(--color-selecty);
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    max-width: 200px;
-    /* largura máxima */
-    width: 100%;
-    /* flexível até o max-width */
-}
-
-@media (min-width: 600px) {
-    .action-buttons .btn-action {
-        width: auto;
-        /* natural width em telas maiores */
-    }
+    gap: .5rem;
+    transition: background .2s, border-color .2s;
 }
 
 .btn-action:hover {
-    background: #004a7b;
-    border-color: #004a7b;
+    background: var(--color-selecty);
+    border-color: var(--color-jonquil);
 }
 
-/* Modal de formulário */
+/* Modal */
 .modal {
     position: fixed;
     top: 0;
@@ -309,22 +239,116 @@ nav#sidebar.open~main {
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+    color: var(--color-blackol);
 }
 
-/* Reaproveite estilos do form existente para #form-incidente-modal */
-#form-incidente-modal input,
-#form-incidente-modal textarea,
-#form-incidente-modal button {
-    width: 100%;
-    margin-bottom: .5rem;
-    padding: .6rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* Forms */
+form,
+#form-incidente,
+#form-incidente-modal {
+    max-width: 600px;
+    margin: 1rem auto;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+input,
+textarea,
+select,
+button {
     font-family: inherit;
 }
 
-#form-incidente-modal button {
-    background: #0071bc;
-    color: #fff;
+#form-incidente-modal input,
+#form-incidente-modal textarea,
+#form-incidente-modal select {
+    margin-bottom: .5rem;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: .6rem;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+}
+
+button {
+    padding: .6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#form-incidente button,
+#form-incidente-modal button,
+.card-incidente button {
+    background: var(--color-jonquil);
+    color: var(--color-night);
     border: none;
+}
+
+button:hover {
+    background: var(--color-selecty);
+}
+
+/* Incident cards */
+.card-incidente {
+    background: #fff;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    border-left: 4px solid var(--color-selecty);
+}
+
+.card-incidente img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin: .5rem 0;
+}
+
+.card-incidente h3 {
+    color: var(--color-jet);
+}
+
+.card-incidente h4 {
+    margin-top: 1rem;
+    color: var(--color-blackol);
+}
+
+.card-incidente ul {
+    padding-left: 1rem;
+    margin-top: .5rem;
+}
+
+.comment-form {
+    display: flex;
+    gap: .5rem;
+    margin-top: .75rem;
+}
+
+.comment-form input {
+    flex: 1;
+}
+
+.comment-form button {
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header .site-title {
+        display: block;
+    }
+}
+
+.location-banner {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: var(--color-blackol);
 }

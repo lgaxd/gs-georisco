@@ -26,7 +26,9 @@
     <!-- Header -->
     <header>
         <button id="btn-menu" class="icon-btn">☰</button>
-        <h1 class="site-title">GeoRisco</h1>
+        <a href="/" class="site-title">
+            <img src="/images/GeoRisco_logo_principal.png" alt="GeoRisco" class="logo-img">
+        </a>
         <div class="profile-container">
             <button id="btn-profile" class="icon-btn">👤</button>
             <ul id="profile-dropdown" class="dropdown">
@@ -37,15 +39,39 @@
 
     <!-- Main Content -->
     <main>
+
+        </div>
         <div class="action-buttons">
             <button id="btn-fazer" class="btn-action">📝 Registrar Incidente</button>
             <button id="btn-minhas" class="btn-action">📄 Meus Incidentes</button>
+        </div>
+        <!-- Localização do usuário -->
+        <div class="location-banner">
+            Localização: São Paulo, SP
+        </div>
+        <!-- Filtro por bairro -->
+        <div class="filter-container">
+            <label for="filtro-bairro">Filtrar por bairro:</label>
+            <select id="filtro-bairro">
+                <option value="Todos">Todos</option>
+                <option value="Moema">Moema</option>
+                <option value="Vila Madalena">Vila Madalena</option>
+                <option value="Sé">Sé</option>
+                <option value="Itaim Bibi">Itaim Bibi</option>
+            </select>
         </div>
         <div id="modal" class="modal">
             <div class="modal-content">
                 <button id="modal-close" class="modal-close">✕</button>
                 <form id="form-incidente-modal">
                     <input type="text" id="titulo" placeholder="Título do incidente" required />
+                    <select id="bairro" name="bairro" required>
+                        <option value="" disabled selected>Selecione o bairro</option>
+                        <option>Moema</option>
+                        <option>Vila Madalena</option>
+                        <option>Sé</option>
+                        <option>Itaim Bibi</option>
+                    </select>
                     <textarea id="descricao" placeholder="Descrição detalhada" required></textarea>
                     <input type="url" id="fotoURL" placeholder="URL da imagem (opcional)" />
                     <button type="submit">Registrar Incidente</button>
