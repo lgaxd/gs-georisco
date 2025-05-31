@@ -19,44 +19,138 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Poppins';
 }
 
-/* body/layout */
+/* corpo e layout */
 body {
-    font-family: Arial, sans-serif;
     background: var(--gray-light);
     display: flex;
     min-height: 100vh;
     color: var(--color-jet);
 }
 
-/* Sidebar */
+/* ===========================
+   SIDEBAR (formato final)
+   =========================== */
+
+/* 1) Ajusta a largura e o posicionamento inicial */
 nav#sidebar {
     position: fixed;
     top: 0;
     left: -220px;
+    /* Fica oculto à esquerda inicialmente */
     width: 220px;
+    /* Largura fixa de 220px */
     height: 100%;
-    background: var(--color-night);
+    background: var(--color-jonquil);
+    /* Fundo jonquil (#FFD000) */
     color: #fff;
-    padding-top: 60px;
-    transition: left .3s;
+    /* Texto branco */
+    transition: left 0.3s;
     z-index: 10;
+    overflow-y: auto;
+    /* Scroll interno, caso tenha muitos itens */
 }
 
+/* 2) Ao abrir, desloca para left:0 */
 nav#sidebar.open {
     left: 0;
 }
 
-nav#sidebar a {
-    display: block;
-    padding: .75rem 1rem;
-    color: #fff;
-    text-decoration: none;
+/* 3) Container interno (para dar padding-top e posicionar o botão de fechar) */
+nav#sidebar .sidebar-inner {
+    position: relative;
+    padding-top: 50px;
+    /* Espaço para não bater no header/fechar */
 }
 
-nav#sidebar a:hover {
-    background: var(--color-blackol);
+/* 4) Botão “×” no topo direito, dentro da sidebar */
+nav#sidebar .btn-close-sidebar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+nav#sidebar .btn-close-sidebar:hover {
+    color: var(--color-selecty);
+    /* Fica mais claro ao passar o mouse */
+}
+
+/* 5) Lista sem marcadores, sem recuo */
+nav#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 6) Cada item da lista: espaçamento vertical e alinhamento */
+nav#sidebar li {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    /* Espaçamento entre itens */
+    padding-left: 15px;
+    /* Espaço à esquerda */
+    font-size: 1.1rem;
+    /* Tamanho de fonte um pouco maior */
+}
+
+/* 7) O “01”, “02” etc. */
+nav#sidebar li span {
+    width: 30px;
+    /* Reserva largura fixa para o número */
+    flex-shrink: 0;
+    font-weight: bold;
+    color: #fff;
+    text-align: right;
+    margin-right: 8px;
+    /* Pequeno espaço entre número e link */
+}
+
+/* 8) O link em si (o texto “Incidentes”, “Mapa” etc.) */
+nav#sidebar li a {
+    color: #fff;
+    text-decoration: none;
+    flex-grow: 1;
+    transition: color 0.2s;
+}
+
+nav#sidebar li a:hover {
+    color: var(--color-night);
+    /* Se quiser algum hover, ex: preto */
+}
+
+/* 9) Mesmo comportamento de overlay e main, mantendo o conteúdo fixo por baixo */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    z-index: 5;
+}
+
+#overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 10) No mobile, garantir que o main NÃO sofra margin-left */
+@media (max-width: 600px) {
+    nav#sidebar.open~main {
+        margin-left: 0 !important;
+    }
 }
 
 /* Overlay */
@@ -78,14 +172,14 @@ nav#sidebar a:hover {
     visibility: visible;
 }
 
-/* Header */
+/* Header (sem mudanças) */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 60px;
-    background: #fff;
+    background: var(--color-night);
     border-bottom: 1px solid var(--gray-border);
     display: flex;
     align-items: center;
@@ -99,19 +193,33 @@ header {
     display: block;
 }
 
-header {
-    background: var(--color-night);
-    /* preto para contraste com a logo branca */
-    height: 70px;
-    /* se precisar mais altura */
-}
-
 .icon-btn {
     background: none;
     border: none;
-    font-size: 1.5rem;
     cursor: pointer;
     color: var(--color-jet);
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    padding: 6px;
+    border-radius: 10%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-btn:hover {
+    background: var(--gray-hover);
+}
+
+.menu-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 /* Profile dropdown */
@@ -147,7 +255,36 @@ header {
     background: var(--gray-hover);
 }
 
-/* Main content shift */
+.profile-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.profile-btn:hover {
+    background-color: var(--gray-hover);
+}
+
+.profile-btn img {
+    width: 48px;
+    height: 48px;
+    display: block;
+}
+
+.profile-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-selecty);
+}
+
+/* Main content */
 main {
     margin-top: 60px;
     padding: 1rem;
@@ -159,28 +296,7 @@ nav#sidebar.open~main {
     margin-left: 220px;
 }
 
-/* Filter */
-.filter-container {
-    max-width: 600px;
-    margin: 1rem auto;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-}
-
-.filter-container label {
-    font-weight: bold;
-    color: var(--color-blackol);
-}
-
-.filter-container select {
-    padding: .5rem;
-    border-radius: 4px;
-    border: 1px solid var(--gray-border);
-    flex: 1;
-}
-
-/* Action buttons */
+/* AÇÃO BOTÕES (desktop) */
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -207,7 +323,55 @@ nav#sidebar.open~main {
     border-color: var(--color-jonquil);
 }
 
-/* Modal */
+/* LOCALIZAÇÃO */
+.location-banner {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: var(--color-blackol);
+}
+
+/* Buscador / autocomplete */
+.search-container {
+    max-width: 600px;
+    margin: 1rem auto;
+    display: flex;
+    gap: .5rem;
+}
+
+#search-bairro {
+    flex: 1;
+    padding: .6rem;
+    border: 1px solid var(--gray-border);
+    border-radius: 999px;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-jonquil);
+}
+
+.filter-btn:hover {
+    background: var(--color-selecty);
+}
+
+.filter-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+/* Modal (genérico, usado pelo filtro, registro e lightbox) */
 .modal {
     position: fixed;
     top: 0;
@@ -232,6 +396,8 @@ nav#sidebar.open~main {
 }
 
 .modal-close {
+    padding-left: .5rem;
+    padding-right: .5rem;
     position: absolute;
     top: .5rem;
     right: .5rem;
@@ -242,9 +408,37 @@ nav#sidebar.open~main {
     color: var(--color-blackol);
 }
 
-/* Forms */
+/* Modal de filtro específico */
+.filter-content {
+    max-width: 400px;
+}
+
+.filter-content h3 {
+    margin-bottom: .5rem;
+    color: var(--color-jet);
+}
+
+.filter-content label {
+    display: block;
+    margin-top: .75rem;
+    margin-bottom: .25rem;
+    font-weight: bold;
+}
+
+.filter-content select {
+    width: 100%;
+    padding: .6rem;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+}
+
+.filter-content .btn-action {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Formulário de registro (reaproveita estilos) */
 form,
-#form-incidente,
 #form-incidente-modal {
     max-width: 600px;
     margin: 1rem auto;
@@ -276,15 +470,7 @@ select {
     border-radius: 4px;
 }
 
-button {
-    padding: .6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#form-incidente button,
-#form-incidente-modal button,
-.card-incidente button {
+#form-incidente-modal button {
     background: var(--color-jonquil);
     color: var(--color-night);
     border: none;
@@ -294,7 +480,50 @@ button:hover {
     background: var(--color-selecty);
 }
 
-/* Incident cards */
+/* Pré-visualização dentro do modal de registro */
+.file-upload-label {
+    display: inline-block;
+    padding: .6rem 1rem;
+    background: var(--color-jonquil);
+    color: var(--color-night);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: .5rem;
+    transition: background 0.2s;
+}
+
+.file-upload-label:hover {
+    background: var(--color-selecty);
+}
+
+#file-input {
+    display: none;
+}
+
+#preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#preview-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--gray-border);
+}
+
+/* ===============================
+     Container de incidentes (cards)
+     =============================== */
+#incidentes-container {
+    margin-top: 1rem;
+}
+
+/* Card geral */
 .card-incidente {
     background: #fff;
     margin: 1rem auto;
@@ -303,52 +532,255 @@ button:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     border-left: 4px solid var(--color-selecty);
+    position: relative;
 }
 
-.card-incidente img {
-    max-width: 100%;
-    border-radius: 4px;
-    margin: .5rem 0;
+/* Botão de comentário no card (no canto inferior esquerdo) */
+.comment-btn {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
+.comment-btn:hover {
+    color: var(--color-selecty);
+}
+
+/* Título e parágrafos do card */
 .card-incidente h3 {
     color: var(--color-jet);
+    margin-bottom: 0.5rem;
 }
 
-.card-incidente h4 {
-    margin-top: 1rem;
-    color: var(--color-blackol);
+.card-incidente p {
+    margin-bottom: 0.5rem;
 }
 
+.card-incidente small {
+    color: #666;
+}
+
+/* Grade responsiva de imagens dentro do card */
+.imagens-grid {
+    display: grid;
+    gap: 2px;
+    margin: 0.75rem 0;
+}
+
+/* 1 imagem */
+.imagens-grid.one {
+    grid-template-columns: 1fr;
+}
+
+.imagens-grid.one img {
+    width: 100%;
+    height: auto;
+}
+
+/* 2 imagens */
+.imagens-grid.two {
+    grid-template-columns: 1fr 1fr;
+}
+
+.imagens-grid.two img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 3 imagens */
+.imagens-grid.three {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+}
+
+.imagens-grid.three img:nth-child(1) {
+    grid-column: 1 / span 2;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.imagens-grid.three img:nth-child(2),
+.imagens-grid.three img:nth-child(3) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 4 imagens */
+.imagens-grid.four {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+}
+
+.imagens-grid.four img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* >4 (nunca usado) */
+.imagens-grid.more {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+}
+
+.imagens-grid.more img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilo geral das miniaturas */
+.imagens-grid img {
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.imagens-grid img:hover {
+    transform: scale(1.02);
+}
+
+/* Comentários dentro do card (apenas contagem/exibição breve) */
 .card-incidente ul {
-    padding-left: 1rem;
-    margin-top: .5rem;
+    display: none;
+    /* agora não exibimos a lista diretamente */
 }
 
-.comment-form {
+/* =========================
+     Lightbox (abrir imagem)
+     ========================= */
+.img-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    /* acima de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+}
+
+.img-modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.img-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.img-modal-close:hover {
+    color: #ffb700;
+    /* jonquil */
+}
+
+/* ===================================
+     Modal de post + comentários (Twitter)
+     =================================== */
+.post-modal-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
     display: flex;
-    gap: .5rem;
-    margin-top: .75rem;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.comment-form input {
+#post-details {
+    flex: 0 0 auto;
+}
+
+#post-comments {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    margin: 0.5rem 0;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5rem;
+}
+
+.post-comment-item {
+    margin-bottom: 0.5rem;
+}
+
+.post-comment-item small {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+#post-comment-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#post-comment-input {
     flex: 1;
+    padding: 0.6rem;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
 }
 
-.comment-form button {
+#post-comment-form button {
     flex-shrink: 0;
 }
 
-/* Responsive */
+/* Responsividade: esconder botões de texto no mobile, mostrar apenas “+” */
 @media (max-width: 600px) {
-    header .site-title {
-        display: block;
+    .action-buttons {
+        display: none;
+    }
+
+    .btn-floating {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
-.location-banner {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 1rem;
-    color: var(--color-blackol);
+/* Botão flutuante (+) */
+.btn-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--color-jonquil);
+    color: var(--color-night);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 99;
+    display: none;
+    /* só aparece no mobile */
+}
+
+@media (max-width: 600px) {
+    .btn-floating {
+        display: flex;
+    }
 }

@@ -6,84 +6,155 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>GeoRisco</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet" />
 </head>
 
 <body>
-
     <!-- Sidebar / Nav -->
     <nav id="sidebar">
-        <button id="btn-close" class="btn-close-sidebar">✕</button>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="contato.html">Contato</a></li>
-            <li><a href="notificacoes.html">Notificações</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="devs.html">Desenvolvedores</a></li>
-        </ul>
+        <div class="sidebar-inner">
+            <button class="btn-close-sidebar" id="btn-close">&times;</button>
+            <ul>
+                <li><span>01</span> <a href="#incidentes">Incidentes</a></li>
+                <li><span>02</span> <a href="#mapa">Mapa</a></li>
+                <li><span>03</span> <a href="#perfil">Perfil</a></li>
+                <li><span>04</span> <a href="#meus">Meus Registros</a></li>
+                <li><span>05</span> <a href="#contato">Contato</a></li>
+                <li><span>06</span> <a href="#faq">Perguntas</a></li>
+                <li><span>07</span> <a href="#devs">Desenvolvedores</a></li>
+            </ul>
+        </div>
     </nav>
     <div id="overlay"></div>
 
     <!-- Header -->
     <header>
-        <button id="btn-menu" class="icon-btn">☰</button>
+        <button id="btn-menu" class="icon-btn menu-btn" aria-label="Abrir menu">
+            <img src="images/menu.png" alt="Abrir menu" class="menu-icon" />
+        </button>
         <a href="/" class="site-title">
-            <img src="/images/GeoRisco_logo_principal.png" alt="GeoRisco" class="logo-img">
+            <img src="images/GeoRisco_logo_principal.png" alt="GeoRisco" class="logo-img" />
         </a>
         <div class="profile-container">
-            <button id="btn-profile" class="icon-btn">👤</button>
+            <button id="btn-profile" class="profile-btn">
+                <img src="images/icone-user.png" alt="Usuário" />
+            </button>
             <ul id="profile-dropdown" class="dropdown">
                 <li><a href="inicio.html">Login</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- MAIN CONTENT -->
     <main>
-
-        </div>
+        <!-- Botões de ação (desktop) -->
         <div class="action-buttons">
             <button id="btn-fazer" class="btn-action">📝 Registrar Incidente</button>
             <button id="btn-minhas" class="btn-action">📄 Meus Incidentes</button>
         </div>
+
         <!-- Localização do usuário -->
         <div class="location-banner">
             Localização: São Paulo, SP
         </div>
-        <!-- Filtro por bairro -->
-        <div class="filter-container">
-            <label for="filtro-bairro">Filtrar por bairro:</label>
-            <select id="filtro-bairro">
-                <option value="Todos">Todos</option>
-                <option value="Moema">Moema</option>
-                <option value="Vila Madalena">Vila Madalena</option>
-                <option value="Sé">Sé</option>
-                <option value="Itaim Bibi">Itaim Bibi</option>
-            </select>
+
+        <!-- Busca por bairro (autocomplete) -->
+        <div class="search-container">
+            <input type="text" id="search-bairro" placeholder="Pesquisar região" list="bairros-list"
+                autocomplete="off" />
+            <datalist id="bairros-list"></datalist>
+            <button id="btn-open-filter" class="icon-btn filter-btn" aria-label="Filtrar">
+                <img src="images/filtro.png" alt="Filtro" class="filter-icon" />
+            </button>
         </div>
+
+        <!-- Modal de Filtro Avançado -->
+        <div id="filter-modal" class="modal">
+            <div class="modal-content filter-content">
+                <button id="filter-close" class="modal-close">✕</button>
+                <h3>Filtro avançado</h3>
+                <form id="filter-form">
+                    <label>Estado</label>
+                    <select id="filter-estado" required>
+                        <option value="" disabled selected>Selecione o estado</option>
+                        <option>SP</option>
+                    </select>
+                    <label>Cidade</label>
+                    <select id="filter-cidade" required>
+                        <option value="" disabled selected>Selecione a cidade</option>
+                        <option>São Paulo</option>
+                    </select>
+                    <label>Bairro</label>
+                    <select id="filter-bairro" required>
+                        <option value="" disabled selected>Selecione o bairro</option>
+                    </select>
+                    <button type="submit" class="btn-action">Aplicar filtro</button>
+                </form>
+                <button type="button" id="btn-clear-filter" class="btn-action">Limpar Filtro</button>
+            </div>
+        </div>
+
+        <!-- Container onde os incidentes serão renderizados -->
+        <div id="incidentes-container"></div>
+
+        <!-- Botão flutuante “+” (sempre visível, desktop e mobile) -->
+        <button id="btn-add-mobile" class="btn-floating">+</button>
+
+        <!-- Único Modal para registrar incidente (upload de até 4 imagens) -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <button id="modal-close" class="modal-close">✕</button>
+                <h3>Registrar Incidente</h3>
                 <form id="form-incidente-modal">
-                    <input type="text" id="titulo" placeholder="Título do incidente" required />
-                    <select id="bairro" name="bairro" required>
+                    <input type="text" name="titulo" placeholder="Título do Incidente" required />
+                    <textarea name="descricao" placeholder="Descrição" required></textarea>
+
+                    <!-- Upload múltiplo (até 4 imagens) -->
+                    <label class="file-upload-label">
+                        Escolher até 4 imagens
+                        <input type="file" id="file-input" accept="image/*" name="imagens" multiple
+                            data-max-files="4" />
+                    </label>
+                    <div id="preview-container"></div>
+
+                    <select name="bairro" required>
                         <option value="" disabled selected>Selecione o bairro</option>
-                        <option>Moema</option>
-                        <option>Vila Madalena</option>
-                        <option>Sé</option>
-                        <option>Itaim Bibi</option>
+                        <option value="Moema">Moema</option>
+                        <option value="Sé">Sé</option>
+                        <option value="Vila Madalena">Vila Madalena</option>
+                        <option value="Itaim Bibi">Itaim Bibi</option>
                     </select>
-                    <textarea id="descricao" placeholder="Descrição detalhada" required></textarea>
-                    <input type="url" id="fotoURL" placeholder="URL da imagem (opcional)" />
-                    <button type="submit">Registrar Incidente</button>
+
+                    <button type="submit" class="btn-action">Enviar</button>
                 </form>
             </div>
         </div>
-        <!-- Incident Cards -->
-        <div id="incidentes-container"></div>
+
+        <!-- Modal “Lightbox” para exibir imagem em tela cheia -->
+        <div id="img-modal" class="img-modal">
+            <span id="img-modal-close" class="img-modal-close">&times;</span>
+            <img id="img-modal-content" class="img-modal-content" src="" alt="Visualização de Imagem" />
+        </div>
+
+        <!-- NOVO: Modal para visualizar post + comentários (igual Twitter) -->
+        <div id="post-modal" class="modal">
+            <div class="post-modal-content">
+                <button id="post-modal-close" class="modal-close">✕</button>
+                <div id="post-details"><!-- conteúdo carregado via JS --></div>
+                <div id="post-comments" class="comments-list"><!-- comentários scrolláveis aqui --></div>
+                <form id="post-comment-form">
+                    <input type="text" id="post-comment-input" placeholder="Escreva um comentário" required />
+                    <button type="submit" class="btn-action">Enviar</button>
+                </form>
+            </div>
+        </div>
     </main>
 
-    <script src="/script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
