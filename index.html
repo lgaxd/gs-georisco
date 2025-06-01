@@ -45,7 +45,7 @@
                 <img src="/images/icone-user.png" alt="Usuário" />
             </button>
             <ul class="dropdown profile-dropdown">
-                <li><a href="inicio.html">Login</a></li>
+                <li><a href="/pages/login.html">Login</a></li>
             </ul>
         </div>
     </header>
@@ -153,8 +153,29 @@
                 </form>
             </div>
         </div>
+
+        <div id="modal-resposta" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" id="modal-resposta-close">&times;</span>
+                <h2>Adicionar Resposta ao Incidente</h2>
+                <form id="form-resposta-modal">
+                    <div class="form-group">
+                        <label for="resposta-texto">Sua Resposta:</label>
+                        <textarea id="resposta-texto" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-action">Enviar Resposta</button>
+                </form>
+            </div>
+        </div>
+
     </main>
 
+    <script src="/scripts/auth.js"></script>
+    <script src="/scripts/utils.js"></script>
+    <script src="/scripts/sidebar.js"></script>
+    <script src="/scripts/incidentes.js"></script>
+    <script src="/scripts/resposta.js"></script>
+    <script src="/scripts/modal.js"></script>
     <script src="/scripts/script-principal.js"></script>
 </body>
 

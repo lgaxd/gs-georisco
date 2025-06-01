@@ -948,3 +948,74 @@ button:hover {
   margin-bottom: 1rem;
   font-family: inherit;
 }
+
+/* Estilos para a seção de respostas dentro do card de incidente */
+.card-incidente .respostas-section {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--gray-border);
+    background-color: var(--gray-light); /* Um fundo leve para destacar */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card-incidente .respostas-section h4 {
+    font-size: 1em;
+    color: var(--color-jet);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.card-incidente .resposta-item {
+    background-color: #ffffff; /* Fundo branco para cada resposta */
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 8px; /* Espaço entre as respostas */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.card-incidente .resposta-item:last-child {
+    margin-bottom: 0; /* Remove margem do último item */
+}
+
+.card-incidente .resposta-item .resposta-texto {
+    font-size: 0.95em;
+    line-height: 1.4;
+    color: var(--color-blackol);
+    margin-bottom: 5px;
+}
+
+.card-incidente .resposta-item .resposta-autor {
+    font-size: 0.8em;
+    color: var(--color-night);
+    font-weight: bold;
+    text-transform: uppercase; /* Garante que o perfil seja CAPS */
+}
+
+/* Ajustes gerais para os cards de incidente */
+.card-incidente {
+    /* ... seus estilos existentes para card-incidente ... */
+    display: flex;
+    flex-direction: column; /* Para que os elementos se empilhem verticalmente */
+    justify-content: space-between; /* Para empurrar a seção de respostas para baixo */
+}
+
+/* Ajuste para o .info-linha caso precise de mais espaço ou alinhamento */
+.card-incidente .info-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px; /* Espaço acima */
+    margin-bottom: 5px; /* Espaço abaixo, antes das ações ou respostas */
+}
+
+/* ... (seus estilos para .btn-resposta e .btn-comentar) ... */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Adicionado para separar as ações das respostas */
+}
