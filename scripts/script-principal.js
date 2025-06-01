@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ----- 1. Captura de elementos -----
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const btnMenu = document.getElementById('btn-menu');
-    const btnClose = document.getElementById('btn-close');
-
-    const btnProfile = document.getElementById('btn-profile');
-    const profileDrop = document.getElementById('profile-dropdown');
 
     const container = document.getElementById('incidentes-container');
 
@@ -43,17 +36,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const postCommentInput = document.getElementById('post-comment-input');
 
     // ----- 2. Sidebar -----
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('visible');
-    }
-    if (btnMenu && btnClose && overlay) {
-        btnMenu.addEventListener('click', toggleSidebar);
-        btnClose.addEventListener('click', toggleSidebar);
-        overlay.addEventListener('click', toggleSidebar);
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    const btnMenu = document.querySelector('.btn-menu');
+    const btnClose = document.querySelector('.btn-close-sidebar');
+
+    if (btnMenu && sidebar && overlay) {
+        btnMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('visible');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        if (btnClose) {
+            btnClose.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+            });
+        }
     }
 
-    // ----- 3. Profile dropdown -----
+    // ----- 2. Profile dropdown funcional em todas as páginas -----
+    const btnProfile = document.querySelector('.btn-profile');
+    const profileDrop = document.querySelector('.dropdown');
+
     if (btnProfile && profileDrop) {
         btnProfile.addEventListener('click', e => {
             e.stopPropagation();
@@ -66,47 +76,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ----- 4. LocalStorage & dados iniciais -----
     function initStorage() {
-        if (!localStorage.getItem('incidentes')) {
-            const exemplos = [
-                {
-                    titulo: 'Árvore na Rua Gomes de Carvalho',
-                    descricao: 'Uma grande árvore está com o tronco rachado.',
-                    imagens: ['images/arvore.jpg'],
-                    cidade: 'São Paulo',
-                    bairro: 'Moema',
-                    data: new Date().toLocaleString('pt-BR'),
-                    comentarios: []
-                },
-                {
-                    titulo: 'Buraco gigante na Rua Tabatinguera',
-                    descricao: 'Asfalto cedeu após chuva forte.',
-                    imagens: ['images/buraco.jpg'],
-                    cidade: 'São Paulo',
-                    bairro: 'Sé',
-                    data: new Date().toLocaleString('pt-BR'),
-                    comentarios: []
-                },
-                {
-                    titulo: 'Deslizamento de terra na Rua Girassol',
-                    descricao: 'Barro escorreu sobre a via.',
-                    imagens: ['images/deslizamento.png'],
-                    cidade: 'São Paulo',
-                    bairro: 'Vila Madalena',
-                    data: new Date().toLocaleString('pt-BR'),
-                    comentarios: []
-                },
-                {
-                    titulo: 'Poste torto na Rua Iguatemi',
-                    descricao: 'Poste de luz inclinado após vento forte.',
-                    imagens: ['images/poste.jpg'],
-                    cidade: 'São Paulo',
-                    bairro: 'Itaim Bibi',
-                    data: new Date().toLocaleString('pt-BR'),
-                    comentarios: []
+        const dadosBrutos = localStorage.getItem('incidentes');
+
+        if (!dadosBrutos) {
+            carregarExemplos(); // nada salvo ainda
+        } else {
+            try {
+                const dados = JSON.parse(dadosBrutos);
+
+                const dadosAntigos = dados.some(inc => inc.fotoURL || !Array.isArray(inc.imagens));
+
+                if (dadosAntigos) {
+                    console.warn('Dados antigos detectados. Substituindo pelos exemplos atualizados.');
+                    localStorage.removeItem('incidentes');
+                    carregarExemplos();
                 }
-            ];
-            localStorage.setItem('incidentes', JSON.stringify(exemplos));
+            } catch (e) {
+                console.error('Erro ao ler dados do localStorage:', e);
+                localStorage.removeItem('incidentes');
+                carregarExemplos();
+            }
         }
+    }
+
+    function carregarExemplos() {
+        const exemplos = [
+            {
+                titulo: 'Árvore na Rua Gomes de Carvalho',
+                descricao: 'Uma grande árvore está com o tronco rachado.',
+                imagens: ['images/arvore.jpg'],
+                cidade: 'São Paulo',
+                bairro: 'Moema',
+                data: new Date().toLocaleString('pt-BR'),
+                comentarios: []
+            },
+            {
+                titulo: 'Buraco gigante na Rua Tabatinguera',
+                descricao: 'Asfalto cedeu após chuva forte.',
+                imagens: ['images/buraco.jpg'],
+                cidade: 'São Paulo',
+                bairro: 'Sé',
+                data: new Date().toLocaleString('pt-BR'),
+                comentarios: []
+            },
+            {
+                titulo: 'Deslizamento de terra na Rua Girassol',
+                descricao: 'Barro escorreu sobre a via.',
+                imagens: ['images/deslizamento.png'],
+                cidade: 'São Paulo',
+                bairro: 'Vila Madalena',
+                data: new Date().toLocaleString('pt-BR'),
+                comentarios: []
+            },
+            {
+                titulo: 'Poste torto na Rua Iguatemi',
+                descricao: 'Poste de luz inclinado após vento forte.',
+                imagens: ['images/poste.jpg'],
+                cidade: 'São Paulo',
+                bairro: 'Itaim Bibi',
+                data: new Date().toLocaleString('pt-BR'),
+                comentarios: []
+            }
+        ];
+
+        localStorage.setItem('incidentes', JSON.stringify(exemplos));
     }
 
     function getIncidentes() {
@@ -137,9 +170,17 @@ document.addEventListener('DOMContentLoaded', () => {
         renderIncidentes();
     }
 
+    function associarEventosComentarios() {
+        container.querySelectorAll('.btn-comentar').forEach(btn => {
+            btn.addEventListener('click', e => {
+                const idx = Number(btn.dataset.idx);
+                abrirPostModal(idx);
+            });
+        });
+    }
+
     // ----- 5. Renderização e filtro -----
     function renderIncidentes(filtroTexto = '') {
-        if (!container) return;
         container.innerHTML = '';
         const todos = getIncidentes();
         const texto = filtroTexto.trim().toLowerCase();
@@ -177,10 +218,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Bairro:</strong> ${inc.bairro}</p>
             <p>${inc.descricao}</p>
             ${imagensHTML}
-            <small>${inc.data}</small>
-            <p><small>${inc.comentarios.length} comentário(s)</small></p>
-            <button class="comment-btn" data-idx="${i}" aria-label="Ver comentários">💬</button>
-          `;
+            <div class="info-linha">
+  <small>${inc.data}</small>
+  <span class="comentario-count">${inc.comentarios.length} comentário(s)</span>
+</div>
+<button class="btn-comentar" data-idx="${i}" title="Ver comentários">
+  <img src="images/comentario.png" alt="Comentários" class="icon-comentario" />
+</button>`;
                 container.appendChild(card);
             });
 
@@ -196,12 +240,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // (Esse listener será definido ao abrir o post-modal, não aqui)
 
         // Associa cada miniatura ao lightbox de imagem
+        // Associa os botões de comentário ao post-modal
+        associarEventosComentarios();
+
+        // Associa miniaturas ao lightbox de imagem
         container.querySelectorAll('.grid-img').forEach(imgEl => {
             imgEl.addEventListener('click', e => {
                 const src = e.currentTarget.getAttribute('data-src');
                 imgModalContent.src = src;
                 imgModal.style.display = 'flex';
             });
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const val = searchInput.value.trim();
+            renderIncidentes(val); // chama a função com o valor digitado
         });
     }
 
