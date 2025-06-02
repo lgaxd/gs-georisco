@@ -72,6 +72,10 @@ function populateProfileInfo() {
  */
 function setupPerfilEvents() {
     // Abrir Modal de Edição de Nome
+    console.log("perfil.js: btnEditName encontrado?", btnEditName);
+    console.log("perfil.js: window.modalModule existe?", !!window.modalModule);
+    console.log("perfil.js: window.modalModule.openModal é função?", typeof window.modalModule?.openModal === 'function');
+    console.log("perfil.js: window.modalModule.modalEditName encontrado?", window.modalModule?.modalEditName);
     if (btnEditName && window.modalModule && typeof window.modalModule.openModal === 'function' && window.modalModule.modalEditName) {
         btnEditName.addEventListener('click', () => {
             if (window.authModule && !window.authModule.exigirLoginAcao()) return;
@@ -101,6 +105,8 @@ function setupPerfilEvents() {
     }
 
     // Abrir Modal de Mudança de Senha
+    console.log("perfil.js: btnChangePassword encontrado?", btnChangePassword);
+    console.log("perfil.js: window.modalModule.modalChangePassword encontrado?", window.modalModule?.modalChangePassword);
     if (btnChangePassword && window.modalModule && typeof window.modalModule.openModal === 'function' && window.modalModule.modalChangePassword) {
         btnChangePassword.addEventListener('click', () => {
             if (window.authModule && !window.authModule.exigirLoginAcao()) return;

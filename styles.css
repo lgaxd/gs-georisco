@@ -138,25 +138,6 @@ nav.sidebar li a:hover {
     }
 }
 
-/* Overlay */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .3s;
-    z-index: 5;
-}
-
-.overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
 /* Header (sem mudanças) */
 header {
     position: fixed;
@@ -275,10 +256,6 @@ main {
     padding: 1rem;
     flex: 1;
     transition: margin-left .3s;
-}
-
-nav.sidebar.open ~ main {
-    margin-left: 220px;
 }
 
 /* AÇÃO BOTÕES (desktop) */
@@ -925,28 +902,28 @@ button:hover {
 }
 
 .form-section {
-  max-width: 600px;
-  margin: 2rem auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .contact-form label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
 }
 
 .contact-form input,
 .contact-form textarea {
-  width: 100%;
-  padding: .6rem;
-  border: 1px solid var(--gray-border);
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-family: inherit;
+    width: 100%;
+    padding: .6rem;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-family: inherit;
 }
 
 /* Estilos para a seção de respostas dentro do card de incidente */
@@ -954,7 +931,8 @@ button:hover {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px dashed var(--gray-border);
-    background-color: var(--gray-light); /* Um fundo leve para destacar */
+    background-color: var(--gray-light);
+    /* Um fundo leve para destacar */
     padding: 10px;
     border-radius: 5px;
 }
@@ -968,16 +946,19 @@ button:hover {
 }
 
 .card-incidente .resposta-item {
-    background-color: #ffffff; /* Fundo branco para cada resposta */
+    background-color: #ffffff;
+    /* Fundo branco para cada resposta */
     border: 1px solid var(--gray-border);
     border-radius: 4px;
     padding: 8px 12px;
-    margin-bottom: 8px; /* Espaço entre as respostas */
+    margin-bottom: 8px;
+    /* Espaço entre as respostas */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .card-incidente .resposta-item:last-child {
-    margin-bottom: 0; /* Remove margem do último item */
+    margin-bottom: 0;
+    /* Remove margem do último item */
 }
 
 .card-incidente .resposta-item .resposta-texto {
@@ -991,15 +972,18 @@ button:hover {
     font-size: 0.8em;
     color: var(--color-night);
     font-weight: bold;
-    text-transform: uppercase; /* Garante que o perfil seja CAPS */
+    text-transform: uppercase;
+    /* Garante que o perfil seja CAPS */
 }
 
 /* Ajustes gerais para os cards de incidente */
 .card-incidente {
     /* ... seus estilos existentes para card-incidente ... */
     display: flex;
-    flex-direction: column; /* Para que os elementos se empilhem verticalmente */
-    justify-content: space-between; /* Para empurrar a seção de respostas para baixo */
+    flex-direction: column;
+    /* Para que os elementos se empilhem verticalmente */
+    justify-content: space-between;
+    /* Para empurrar a seção de respostas para baixo */
 }
 
 /* Ajuste para o .info-linha caso precise de mais espaço ou alinhamento */
@@ -1007,8 +991,10 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px; /* Espaço acima */
-    margin-bottom: 5px; /* Espaço abaixo, antes das ações ou respostas */
+    margin-top: 10px;
+    /* Espaço acima */
+    margin-bottom: 5px;
+    /* Espaço abaixo, antes das ações ou respostas */
 }
 
 /* ... (seus estilos para .btn-resposta e .btn-comentar) ... */
@@ -1017,83 +1003,76 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-    margin-bottom: 10px; /* Adicionado para separar as ações das respostas */
+    margin-bottom: 10px;
+    /* Adicionado para separar as ações das respostas */
 }
 
 .faq-item {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  cursor: pointer;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .faq-item summary {
-  font-weight: 600;
-  font-size: 1.1rem;
-  outline: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    outline: none;
 }
 
 .faq-item p {
-  margin-top: 0.5rem;
-  padding-left: 1rem;
-  color: #444;
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    color: #444;
 }
 
 .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .login-container h1 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--color-jet);
-        }
-
-        .login-container label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .login-container input,
-        .login-container select {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--gray-border);
-            border-radius: 4px;
-            font-family: inherit;
-        }
-
-        .login-container button {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--color-jonquil);
-            color: var(--color-night);
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .login-container button:hover {
-            background: var(--color-selecty);
-        }
-
-        /* Contêiner principal da página de perfil */
-.main-content-perfil {
+    max-width: 400px;
+    margin: 100px auto;
+    background: #fff;
     padding: 2rem;
-    max-width: 700px; /* Largura um pouco menor que o FAQ */
-    margin: 80px auto 2rem auto; /* Margem superior para o header fixo */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
     color: var(--color-jet);
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.login-container input,
+.login-container select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--color-jonquil);
+    color: var(--color-night);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-container button:hover {
+    background: var(--color-selecty);
 }
 
 /* Título da página */
@@ -1132,9 +1111,12 @@ button:hover {
     padding-top: 20px;
     border-top: 1px dashed var(--gray-border);
     display: flex;
-    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
-    gap: 15px; /* Espaçamento entre os botões */
-    justify-content: center; /* Centraliza os botões */
+    flex-wrap: wrap;
+    /* Permite que os botões quebrem a linha em telas pequenas */
+    gap: 15px;
+    /* Espaçamento entre os botões */
+    justify-content: center;
+    /* Centraliza os botões */
 }
 
 /* Estilos para os botões (reaproveitar estilos existentes ou criar novos) */
@@ -1148,7 +1130,8 @@ button:hover {
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s ease;
-    text-decoration: none; /* Para caso seja usado em <a> */
+    text-decoration: none;
+    /* Para caso seja usado em <a> */
     display: inline-block;
 }
 
@@ -1157,7 +1140,8 @@ button:hover {
 }
 
 .btn-secondary {
-    background-color: #e0e0e0; /* Um cinza mais claro */
+    background-color: #e0e0e0;
+    /* Um cinza mais claro */
     color: var(--color-jet);
     border: 1px solid #c0c0c0;
     padding: 10px 20px;
@@ -1218,4 +1202,45 @@ button:hover {
     font-weight: 600;
     border-radius: 5px;
     /* Usa os estilos de .btn-primary */
+}
+
+#salvar-senha,
+#salvar-nome {
+    margin-top: 1rem;
+}
+
+/* Adicione ou modifique esta regra para o main da página de perfil */
+main.main-content-perfil { /* Use o seletor de classe para maior especificidade */
+    padding: 2rem;
+    max-width: 700px;
+    /* Defina as margens para o estado normal, com o topo ajustado para o header fixo */
+    margin-top: 80px; /* Margem superior para o header fixo */
+    margin-bottom: 2rem; /* Margem inferior */
+    margin-left: auto; /* Mantém auto para centralizar horizontalmente quando a sidebar estiver fechada */
+    margin-right: auto; /* Mantém auto para centralizar horizontalmente quando a sidebar estiver fechada */
+    color: var(--color-jet);
+    transition: margin-left 0.3s ease; /* Adicione a transição aqui também */
+}
+
+/* Regra para quando a sidebar estiver aberta, agora com especificidade para o main.main-content-perfil */
+nav.sidebar.open ~ main {
+    margin-left: auto; /* Este agora deve sobrescrever o 'auto' */
+    margin-right: auto;
+}
+
+/* Regra para o header fixo, para que ele também se desloque */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--color-night);
+    border-bottom: 1px solid var(--gray-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 .75rem;
+    z-index: 9;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Adicione transição */
 }

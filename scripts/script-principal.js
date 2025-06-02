@@ -1,5 +1,3 @@
-// script-principal.js
-
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Inicializar módulos base (utils, auth)
     if (window.utilsModule) {

@@ -78,31 +78,39 @@ function initModalElements() {
     btnAddMobile = document.getElementById('btn-add-mobile');
     btnFazer = document.getElementById('btn-fazer');
 
-    // *** ADIÇÃO CRÍTICA AQUI: Inicializar as referências dos modais de perfil ***
+    // *** INICIALIZAÇÃO CRÍTICA: Referenciar os modais de perfil ***
     modalEditName = document.getElementById("modal-edit-name");
     modalChangePassword = document.getElementById("modal-change-password");
-    // *** FIM DA ADIÇÃO CRÍTICA ***
+
+    console.log("modal.js: modalEditName após initModalElements:", modalEditName);
+    console.log("modal.js: modalChangePassword após initModalElements:", modalChangePassword);
+    // *** FIM DA INICIALIZAÇÃO CRÍTICA ***
 }
 
 /**
- * Abre um modal.
- * @param {HTMLElement} modalElement O elemento DOM do modal.
+ * Função para abrir um modal.
+ * @param {HTMLElement} modalElement O elemento DOM do modal a ser aberto.
  */
 function openModal(modalElement) {
-    if (modalElement) {
-        modalElement.style.display = 'flex';
+    if (modalElement) { // Verifique se o elemento não é null
+        modalElement.style.display = 'flex'; // ou 'block', dependendo do seu CSS
+        // Adiciona a classe 'modal-open' ao body para desabilitar o scroll
         document.body.classList.add('modal-open');
+    } else {
+        console.error("openModal: Elemento modal é null ou indefinido.");
     }
 }
-
 /**
- * Fecha um modal.
- * @param {HTMLElement} modalElement O elemento DOM do modal.
+ * Função para fechar um modal.
+ * @param {HTMLElement} modalElement O elemento DOM do modal a ser fechado.
  */
 function closeModal(modalElement) {
-    if (modalElement) {
+    if (modalElement) { // Verifique se o elemento não é null
         modalElement.style.display = 'none';
+        // Remove a classe 'modal-open' do body
         document.body.classList.remove('modal-open');
+    } else {
+        console.error("closeModal: Elemento modal é null ou indefinido.");
     }
 }
 
@@ -110,46 +118,50 @@ function closeModal(modalElement) {
  * Configura event listeners para fechar modais ao clicar no botão "x" ou fora.
  */
 function setupModalCloseEvents() {
-    const modals = [
-        { modal: modal, closeBtn: modalClose },
-        { modal: imgModal, closeBtn: imgModalClose },
-        { modal: postModal, closeBtn: postModalClose },
-        { modal: filterModal, closeBtn: filterClose },
-        { modal: respostaModal, closeBtn: respostaModalClose },
-        // *** ADIÇÃO CRÍTICA AQUI: Adicionar os modais de perfil para fechamento ***
-        { modal: modalEditName, closeBtn: document.getElementById('modal-edit-name-close') },
-        { modal: modalChangePassword, closeBtn: document.getElementById('modal-change-password-close') }
+    // Array de botões de fechar e seus respectivos modais
+    const closeButtons = [
+        { btn: modalClose, modal: modal },
+        { btn: imgModalClose, modal: imgModal },
+        { btn: postModalClose, modal: postModal },
+        { btn: respostaModalClose, modal: respostaModal },
+        { btn: filterClose, modal: filterModal },
+        // *** ADIÇÃO CRÍTICA: Botões de fechar dos modais de perfil ***
+        { btn: document.getElementById("modal-edit-name-close"), modal: modalEditName },
+        { btn: document.getElementById("modal-change-password-close"), modal: modalChangePassword }
         // *** FIM DA ADIÇÃO CRÍTICA ***
     ];
 
-    modals.forEach(({ modal, closeBtn }) => {
-        if (modal) {
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => closeModal(modal));
-            }
-            modal.addEventListener('click', e => {
-                if (e.target === modal) {
-                    closeModal(modal);
-                }
-            });
+    closeButtons.forEach(({ btn, modal }) => {
+        if (btn && modal) { // Garante que o botão e o modal existem
+            btn.addEventListener("click", () => closeModal(modal));
+        } else {
+            console.warn(`setupModalCloseEvents: Botão ou modal não encontrado para ${btn?.id || 'ID desconhecido'}.`);
         }
     });
+
+    // Fechar modal clicando fora
+    // Esta parte pode precisar de ajuste se os modais se sobrepõem e você quer fechar apenas o de cima.
+    // Para simplificar, vou manter o comportamento geral.
+    // O modal.js já tem um overlay que pode ser usado.
 }
 
 /**
  * Configura o fechamento de modais ao pressionar a tecla ESC.
  */
 function setupEscClose() {
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal(modal);
-            closeModal(imgModal);
-            closeModal(postModal);
-            closeModal(filterModal);
-            closeModal(respostaModal);
-            // *** ADIÇÃO CRÍTICA AQUI: Fechar modais de perfil com ESC ***
-            closeModal(modalEditName);
-            closeModal(modalChangePassword);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            // Fecha o modal atualmente visível (você pode precisar de uma lógica mais sofisticada
+            // se tiver múltiplos modais abertos e quiser fechar apenas o último/topo).
+            // Por simplicidade, vamos tentar fechar os modais conhecidos se estiverem abertos.
+            if (modal?.style.display === 'flex') closeModal(modal);
+            if (imgModal?.style.display === 'flex') closeModal(imgModal);
+            if (postModal?.style.display === 'flex') closeModal(postModal);
+            if (respostaModal?.style.display === 'flex') closeModal(respostaModal);
+            if (filterModal?.style.display === 'flex') closeModal(filterModal);
+            // *** ADIÇÃO CRÍTICA: Fechar modais de perfil com ESC ***
+            if (modalEditName?.style.display === 'flex') closeModal(modalEditName);
+            if (modalChangePassword?.style.display === 'flex') closeModal(modalChangePassword);
             // *** FIM DA ADIÇÃO CRÍTICA ***
         }
     });
@@ -477,24 +489,24 @@ function openRespostaModal(idx) {
     }
 }
 
-// EXPOR FUNÇÕES E TAMBÉM OS ELEMENTOS DE MODAL SE NECESSÁRIO PARA OUTROS SCRIPTS
+// EXPOR FUNÇÕES E TAMBÉM OS ELEMENTOS DE MODAL
 window.modalModule = {
     init: initModalElements,
+    openModal, // Expor a função openModal
+    closeModal, // Expor a função closeModal
     setupModalCloseEvents,
     setupEscClose,
-    setupIncidenteModal,
+    setupIncidenteModal, // Se você tiver uma função específica para o modal principal
     setupImgModal,
     openImageModal,
     setupPostModal,
     openPostModal,
-    setupFilterModal,
-    setupMobileButton,
     setupRespostaModal,
     openRespostaModal,
-    openModal,
-    closeModal,
-    // *** ADIÇÃO CRÍTICA AQUI: Expor os elementos de modal para perfil.js ***
-    modalEditName, // Exponha a referência do elemento
-    modalChangePassword // Exponha a referência do elemento
+    setupFilterModal,
+    setupMobileButton,
+    // *** ADIÇÃO CRÍTICA: Expor os elementos de modal após serem inicializados ***
+    get modalEditName() { return modalEditName; }, // Getter para garantir que o valor seja atualizado após init
+    get modalChangePassword() { return modalChangePassword; } // Getter para garantir o valor atualizado
     // *** FIM DAS ADIÇÕES CRÍTICAS ***
 };
