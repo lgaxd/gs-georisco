@@ -204,6 +204,7 @@ header {
     min-width: 140px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     list-style-type: none;
+    margin-top: 1rem;
 }
 
 .dropdown.show {
@@ -1028,6 +1029,10 @@ button:hover {
     color: #444;
 }
 
+details:hover {
+    background: var(--gray-hover);
+}
+
 .login-container {
     max-width: 400px;
     margin: 100px auto;
@@ -1243,4 +1248,209 @@ header {
     padding: 0 .75rem;
     z-index: 9;
     transition: margin-left 0.3s ease, width 0.3s ease; /* Adicione transição */
+}
+
+#post-modal-close {
+    background-color: var(--color-jonquil);
+    border-radius: 100%;
+}
+
+#post-modal-close:hover {
+    background-color: var(--color-selecty);
+}
+
+#btn-minhas.btn-action {
+    padding-left: 39.235px;
+    padding-right: 39.235px;
+}
+
+/* No seu styles.css, adicione ou modifique as seguintes regras: */
+
+/* Estilo do profile-container para acomodar múltiplos botões */
+.profile-container {
+    display: flex; /* Para que os itens dentro dele (notificação e perfil) fiquem lado a lado */
+    align-items: center; /* Alinha verticalmente no centro */
+    gap: 10px; /* Espaçamento entre os botões de notificação e perfil */
+    position: relative; /* Importante para o posicionamento do dropdown */
+}
+
+/* Estilo para os botões de ícone dentro do header (menu, filtro, notificação, perfil) */
+/* Se você já tem um .icon-btn genérico, pode ajustar ele ou criar um específico */
+.header .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex; /* Para centralizar a imagem dentro do botão */
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* Altura padrão para botões de ícone no header */
+    width: 40px;  /* Largura padrão */
+    border-radius: 50%; /* Para botões circulares, se desejar */
+}
+
+.header .icon-btn:hover {
+    background-color: var(--color-jonquil); /* Exemplo de hover */
+}
+
+/* Estilo específico para o ícone de notificação */
+.notification-icon {
+    width: 24px; /* Ajuste o tamanho conforme necessário */
+    height: 24px; /* Ajuste o tamanho conforme necessário */
+    display: block; /* Remove espaçamento extra da imagem */
+    background-color: var(--color-jonquil);
+    border-radius: 50%; /* Para um ícone circular */
+}
+
+/* ===========================
+   Página de Notificações
+   =========================== */
+
+/* Estilo para o contêiner principal do conteúdo da página de notificações */
+.main-content-notifications {
+    padding: 2rem;
+    max-width: 800px; /* Limite a largura para melhor legibilidade */
+    margin-top: 80px; /* Espaço do cabeçalho fixo */
+    margin-bottom: 2rem;
+    margin-left: auto; /* Centraliza horizontalmente */
+    margin-right: auto; /* Centraliza horizontalmente */
+    color: var(--color-jet);
+    transition: margin-left 0.3s ease; /* Para acompanhar o movimento da sidebar */
+}
+
+/* Título da página de notificações */
+.notifications-section h1 {
+    font-size: 2.2rem;
+    color: var(--color-night);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--color-jonquil);
+    padding-bottom: 0.5rem;
+}
+
+/* Lista de notificações (o contêiner #notifications-list) */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espaçamento entre os itens de notificação */
+}
+
+/* Item individual de notificação */
+.notification-item {
+    background-color: #ffffff;
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.notification-item:hover {
+    transform: translateY(-3px); /* Efeito de "levantar" ao passar o mouse */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para notificações não lidas */
+.notification-item.unread {
+    border-left: 5px solid var(--color-selecty); /* Destaque na borda esquerda */
+    background-color: #fffbe6; /* Um fundo levemente amarelado para destacar */
+}
+
+/* Cabeçalho da notificação (título e data) */
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Título da notificação */
+.notification-title {
+    font-size: 1.1rem;
+    color: var(--color-blackol);
+    margin: 0;
+    flex-grow: 1; /* Permite que o título ocupe o espaço disponível */
+}
+
+/* Data/timestamp da notificação */
+.notification-date {
+    font-size: 0.85rem;
+    color: #888;
+    white-space: nowrap; /* Evita que a data quebre a linha */
+    margin-left: 1rem; /* Espaçamento entre o título e a data */
+}
+
+/* Mensagem da notificação */
+.notification-message {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-jet);
+    margin-bottom: 1rem;
+}
+
+/* Link "Ver Incidente" */
+.notification-link {
+    display: inline-block; /* Permite espaçamento e outras propriedades */
+    background-color: var(--color-jonquil);
+    color: var(--color-night);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.notification-link:hover {
+    background-color: var(--color-selecty);
+    color: var(--color-night);
+}
+
+/* Mensagem para quando não houver notificações */
+.no-notifications-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 2rem;
+}
+
+
+/* RESPONSIVIDADE (para telas menores) */
+@media (max-width: 768px) {
+    .main-content-notifications {
+        padding: 1rem; /* Reduz padding em telas menores */
+        margin-top: 60px; /* Ajusta se o header for menor em mobile */
+    }
+
+    .notifications-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .notification-item {
+        padding: 1rem;
+    }
+
+    .notification-header {
+        flex-direction: column; /* Empilha título e data em telas pequenas */
+        align-items: flex-start;
+    }
+
+    .notification-date {
+        margin-left: 0;
+        margin-top: 0.3rem;
+    }
+
+    .notification-title {
+        font-size: 1rem;
+    }
+
+    .notification-message {
+        font-size: 0.9rem;
+    }
+
+    .notification-link {
+        width: 100%; /* Botão ocupa largura total */
+        text-align: center;
+        margin-top: 1rem;
+    }
 }

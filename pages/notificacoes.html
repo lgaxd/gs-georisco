@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Desenvolvedores - GeoRisco</title>
+    <title>Notificações - GeoRisco</title>
     <link rel="stylesheet" href="/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet" />
 </head>
 
 <body>
-
-    <!-- Sidebar / Nav -->
     <nav class="sidebar">
         <div class="sidebar-inner">
             <button class="btn-close-sidebar" aria-label="Fechar menu">&times;</button>
@@ -31,7 +31,6 @@
 
     <div class="overlay"></div>
 
-    <!-- Header -->
     <header class="header">
         <button class="icon-btn menu-btn btn-menu" aria-label="Abrir menu">
             <img src="/images/menu.png" alt="Abrir menu" class="menu-icon" />
@@ -44,6 +43,7 @@
             <button id="btn-notifications" class="notification-btn icon-btn" aria-label="Notificações">
                 <img src="/images/notificacao.png" alt="Notificações" class="notification-icon" />
             </button>
+
             <button class="profile-btn btn-profile" aria-label="Perfil">
                 <img src="/images/icone-user.png" alt="Usuário" />
             </button>
@@ -53,42 +53,42 @@
         </div>
     </header>
 
-    <main>
-        <!-- Cabeçalho da seção -->
-        <div class="devs-header">
-            <a href="/index.html" class="voltar-link">← Voltar</a>
-            <h1>Equipe de Desenvolvimento</h1>
-        </div>
+    <main class="main-content-notifications">
+        <section class="notifications-section">
+            <h1>Suas Notificações</h1>
 
-        <!-- Container de desenvolvedores -->
-        <section class="devs-container">
-            <div class="dev-card">
-                <img src="/images/imagens-devs/lucasgrillo.png" alt="Lucas Grillo Alcântara">
-                <h2>Lucas Grillo Alcântara</h2>
-                <p>RM: 561413 - 1TDSPX</p>
-                <div class="dev-links">
-                    <a href="https://www.linkedin.com/in/lgaxd/" target="_blank" class="btn-linkedin">LinkedIn</a>
-                    <a href="https://github.com/lgaxd" target="_blank" class="btn-github">GitHub</a>
+            <div id="notifications-list" class="notifications-list">
+                <div class="notification-item">
+                    <div class="notification-header">
+                        <h3 class="notification-title">Novo Comentário no Incidente "Enchente em Itaquera..."</h3>
+                        <span class="notification-date">2 minutos atrás</span>
+                    </div>
+                    <p class="notification-message">Seu incidente recebeu um novo comentário de João Silva: "Espero
+                        que façam algo a respeito!"</p>
+                    <a href="#" class="notification-link">Ver Incidente</a>
                 </div>
-            </div>
-            <div class="dev-card">
-                <img src="/images/imagens-devs/augusto.jpg" alt="Augusto Buguas Rodrigues">
-                <h2>Augusto Buguas Rodrigues</h2>
-                <p>RM: 563858 - 1TDSPX</p>
-                <div class="dev-links">
-                    <a href="https://www.linkedin.com/in/augusto-buguas-154308280/" target="_blank"
-                        class="btn-linkedin">LinkedIn</a>
-                    <a href="https://github.com/augustofiap" target="_blank" class="btn-github">GitHub</a>
+
+                <div class="notification-item unread">
+                    <div class="notification-header">
+                        <h3 class="notification-title">Status Atualizado: "Árvore na Rua Gomes..."</h3>
+                        <span class="notification-date">1 hora atrás</span>
+                    </div>
+                    <p class="notification-message">A autoridade Defesa Civil atualizou o status do seu incidente
+                        para "Em Monitoramento".</p>
+                    <a href="#" class="notification-link">Ver Incidente</a>
                 </div>
-            </div>
-            <div class="dev-card">
-                <img src="/images/imagens-devs/pedro.png" alt="Pedro Luís Fachini">
-                <h2>Pedro Luís Fachini</h2>
-                <p>RM: 565889 - 1TDSPX</p>
-                <div class="dev-links">
-                    <a href="https://linkedin.com/in/pedrofachini" target="_blank" class="btn-linkedin">LinkedIn</a>
-                    <a href="https://github.com/pedrofachini" target="_blank" class="btn-github">GitHub</a>
+
+                <div class="notification-item">
+                    <div class="notification-header">
+                        <h3 class="notification-title">Lembrete: Incidente "Morro com deslizamento de potencial..."</h3>
+                        <span class="notification-date">Ontem</span>
+                    </div>
+                    <p class="notification-message">O incidente "Morro com deslizamento de potencial em Petrópolis" ainda está pendente de
+                        solução.</p>
+                    <a href="#" class="notification-link">Ver Incidente</a>
                 </div>
+
+                <p class="no-notifications-message" style="display: none;">Você não tem novas notificações.</p>
             </div>
         </section>
     </main>
@@ -96,8 +96,10 @@
     <script src="/scripts/auth.js"></script>
     <script src="/scripts/utils.js"></script>
     <script src="/scripts/sidebar.js"></script>
+    <script src="/scripts/incidentes.js"></script>
+    <script src="/scripts/resposta.js"></script>
+    <script src="/scripts/modal.js"></script>
     <script src="/scripts/script-principal.js"></script>
-
 </body>
 
 </html>

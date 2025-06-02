@@ -47,16 +47,16 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Erro: perfilModule ou sua função init não está disponível na página de perfil.");
         }
     }
-    
+
     // 6. Inicializar módulo de contato/formulário (se aplicável)
     // Verifique se você usa contato.js ou formulario.js e mantenha apenas um.
     // Ajuste o nome da pasta e do módulo conforme o que você manteve.
     if (window.location.pathname.includes('/pages/contato.html')) { // OU '/pages/formulario.html'
-         if (window.contatoModule && window.contatoModule.init) { // OU window.formularioModule
-             window.contatoModule.init(); // OU window.formularioModule.init()
-         } else {
-             console.warn("Módulo de Contato/Formulário não encontrado para inicialização.");
-         }
+        if (window.contatoModule && window.contatoModule.init) { // OU window.formularioModule
+            window.contatoModule.init(); // OU window.formularioModule.init()
+        } else {
+            console.warn("Módulo de Contato/Formulário não encontrado para inicialização.");
+        }
     }
 
 
@@ -69,4 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    const btnNotifications = document.getElementById("btn-notifications");
+    if (btnNotifications) {
+        btnNotifications.addEventListener("click", () => {
+            // Redireciona para a página de notificações
+            window.location.href = "/pages/notificacoes.html";
+        });
+    }
+
 });

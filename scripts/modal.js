@@ -125,24 +125,41 @@ function setupModalCloseEvents() {
         { btn: postModalClose, modal: postModal },
         { btn: respostaModalClose, modal: respostaModal },
         { btn: filterClose, modal: filterModal },
-        // *** ADIÇÃO CRÍTICA: Botões de fechar dos modais de perfil ***
+        // Botões de fechar dos modais de perfil
         { btn: document.getElementById("modal-edit-name-close"), modal: modalEditName },
         { btn: document.getElementById("modal-change-password-close"), modal: modalChangePassword }
-        // *** FIM DA ADIÇÃO CRÍTICA ***
     ];
 
     closeButtons.forEach(({ btn, modal }) => {
         if (btn && modal) { // Garante que o botão e o modal existem
-            btn.addEventListener("click", () => closeModal(modal));
+            btn.addEventListener("click", (event) => {
+                event.stopPropagation(); // Impede que o clique no botão de fechar acione o "clicar fora"
+                closeModal(modal);
+            });
         } else {
-            console.warn(`setupModalCloseEvents: Botão ou modal não encontrado para ${btn?.id || 'ID desconhecido'}.`);
+            console.warn(`setupModalCloseEvents: Botão ou modal não encontrado para ${btn?.id || (modal?.id ? `modal ${modal.id}` : 'ID desconhecido')}.`);
         }
     });
 
-    // Fechar modal clicando fora
-    // Esta parte pode precisar de ajuste se os modais se sobrepõem e você quer fechar apenas o de cima.
-    // Para simplificar, vou manter o comportamento geral.
-    // O modal.js já tem um overlay que pode ser usado.
+    // --- Lógica para fechar modal clicando fora ---
+    // Crie um array com todos os elementos de modal que você quer fechar clicando fora
+    const allModals = [
+        modal, imgModal, postModal, respostaModal, filterModal,
+        modalEditName, modalChangePassword
+    ];
+
+    allModals.forEach(currentModal => {
+        if (currentModal) { // Garante que o elemento do modal existe
+            currentModal.addEventListener('click', (event) => {
+                // Se o clique ocorreu diretamente no elemento do modal (o "overlay" do modal)
+                // e não em um de seus filhos (o conteúdo interno do modal), feche-o.
+                if (event.target === currentModal) {
+                    closeModal(currentModal);
+                }
+            });
+        }
+    });
+    // --- FIM da lógica de fechar clicando fora ---
 }
 
 /**

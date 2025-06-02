@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <!-- Sidebar / Nav -->
     <nav class="sidebar">
         <div class="sidebar-inner">
             <button class="btn-close-sidebar" aria-label="Fechar menu">&times;</button>
@@ -32,7 +31,6 @@
 
     <div class="overlay"></div>
 
-    <!-- Header -->
     <header class="header">
         <button class="icon-btn menu-btn btn-menu" aria-label="Abrir menu">
             <img src="/images/menu.png" alt="Abrir menu" class="menu-icon" />
@@ -40,7 +38,11 @@
         <a href="/" class="site-title">
             <img src="/images/GeoRisco_logo_principal.png" alt="GeoRisco" class="logo-img" />
         </a>
+
         <div class="profile-container">
+            <button id="btn-notifications" class="notification-btn icon-btn" aria-label="Notificações">
+                <img src="/images/notificacao.png" alt="Notificações" class="notification-icon" />
+            </button>
             <button class="profile-btn btn-profile" aria-label="Perfil">
                 <img src="/images/icone-user.png" alt="Usuário" />
             </button>
@@ -50,20 +52,16 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main>
-        <!-- Botões de ação (desktop) -->
         <div class="action-buttons">
             <button id="btn-fazer" class="btn-action">📝 Registrar Incidente</button>
-            <button id="btn-minhas" class="btn-action">📄 Meus Incidentes</button>
+            <button id="btn-minhas" class="btn-action">📄 Meus Registros</button>
         </div>
 
-        <!-- Localização do usuário -->
         <div class="location-banner">
             Localização: São Paulo, SP
         </div>
 
-        <!-- Busca por bairro (autocomplete) -->
         <div class="search-container">
             <input type="text" id="search-bairro" placeholder="Pesquisar região" list="bairros-list"
                 autocomplete="off" />
@@ -73,7 +71,6 @@
             </button>
         </div>
 
-        <!-- Modal de Filtro Avançado -->
         <div id="filter-modal" class="modal">
             <div class="modal-content filter-content">
                 <button id="filter-close" class="modal-close">✕</button>
@@ -99,13 +96,10 @@
             </div>
         </div>
 
-        <!-- Container onde os incidentes serão renderizados -->
         <div id="incidentes-container"></div>
 
-        <!-- Botão flutuante “+” (sempre visível, desktop e mobile) -->
         <button id="btn-add-mobile" class="btn-floating">+</button>
 
-        <!-- Único Modal para registrar incidente (upload de até 4 imagens) -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <button id="modal-close" class="modal-close">✕</button>
@@ -114,7 +108,6 @@
                     <input type="text" name="titulo" placeholder="Título do Incidente" required />
                     <textarea name="descricao" placeholder="Descrição" required></textarea>
 
-                    <!-- Upload múltiplo (até 4 imagens) -->
                     <label class="file-upload-label">
                         Escolher até 4 imagens
                         <input type="file" id="file-input" accept="image/*" name="imagens" multiple
@@ -135,18 +128,16 @@
             </div>
         </div>
 
-        <!-- Modal “Lightbox” para exibir imagem em tela cheia -->
         <div id="img-modal" class="img-modal">
             <span id="img-modal-close" class="img-modal-close">&times;</span>
             <img id="img-modal-content" class="img-modal-content" src="" alt="Visualização de Imagem" />
         </div>
 
-        <!-- NOVO: Modal para visualizar post + comentários (igual Twitter) -->
         <div id="post-modal" class="modal">
             <div class="post-modal-content">
                 <button id="post-modal-close" class="modal-close">✕</button>
-                <div id="post-details"><!-- conteúdo carregado via JS --></div>
-                <div id="post-comments" class="comments-list"><!-- comentários scrolláveis aqui --></div>
+                <div id="post-details"></div>
+                <div id="post-comments" class="comments-list"></div>
                 <form id="post-comment-form">
                     <input type="text" id="post-comment-input" placeholder="Escreva um comentário" required />
                     <button type="submit" class="btn-action">Enviar</button>
