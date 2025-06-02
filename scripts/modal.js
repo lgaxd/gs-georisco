@@ -18,10 +18,10 @@ let postComments;
 let postCommentForm;
 let postCommentInput;
 
-let respostaModal; // Se houver um modal de resposta
-let respostaModalClose; // Botão de fechar do modal de resposta
-let respostaForm; // Formulário de resposta
-let respostaTexto; // Campo de texto da resposta
+let respostaModal;
+let respostaModalClose;
+let respostaForm;
+let respostaTexto;
 
 let filterModal;
 let filterClose;
@@ -29,7 +29,13 @@ let filterForm;
 let selectBairro;
 
 let btnAddMobile;
-let btnFazer; // Botão "Fazer uma denúncia"
+let btnFazer;
+
+// *** ADIÇÃO CRÍTICA AQUI: Declarar as variáveis dos modais de perfil ***
+let modalEditName;
+let modalChangePassword;
+// *** FIM DA ADIÇÃO CRÍTICA ***
+
 
 /**
  * Inicializa as referências aos elementos DOM de todos os modais.
@@ -71,6 +77,11 @@ function initModalElements() {
     // Botões
     btnAddMobile = document.getElementById('btn-add-mobile');
     btnFazer = document.getElementById('btn-fazer');
+
+    // *** ADIÇÃO CRÍTICA AQUI: Inicializar as referências dos modais de perfil ***
+    modalEditName = document.getElementById("modal-edit-name");
+    modalChangePassword = document.getElementById("modal-change-password");
+    // *** FIM DA ADIÇÃO CRÍTICA ***
 }
 
 /**
@@ -80,6 +91,7 @@ function initModalElements() {
 function openModal(modalElement) {
     if (modalElement) {
         modalElement.style.display = 'flex';
+        document.body.classList.add('modal-open');
     }
 }
 
@@ -90,6 +102,7 @@ function openModal(modalElement) {
 function closeModal(modalElement) {
     if (modalElement) {
         modalElement.style.display = 'none';
+        document.body.classList.remove('modal-open');
     }
 }
 
@@ -102,7 +115,11 @@ function setupModalCloseEvents() {
         { modal: imgModal, closeBtn: imgModalClose },
         { modal: postModal, closeBtn: postModalClose },
         { modal: filterModal, closeBtn: filterClose },
-        { modal: respostaModal, closeBtn: respostaModalClose }
+        { modal: respostaModal, closeBtn: respostaModalClose },
+        // *** ADIÇÃO CRÍTICA AQUI: Adicionar os modais de perfil para fechamento ***
+        { modal: modalEditName, closeBtn: document.getElementById('modal-edit-name-close') },
+        { modal: modalChangePassword, closeBtn: document.getElementById('modal-change-password-close') }
+        // *** FIM DA ADIÇÃO CRÍTICA ***
     ];
 
     modals.forEach(({ modal, closeBtn }) => {
@@ -130,6 +147,10 @@ function setupEscClose() {
             closeModal(postModal);
             closeModal(filterModal);
             closeModal(respostaModal);
+            // *** ADIÇÃO CRÍTICA AQUI: Fechar modais de perfil com ESC ***
+            closeModal(modalEditName);
+            closeModal(modalChangePassword);
+            // *** FIM DA ADIÇÃO CRÍTICA ***
         }
     });
 }
@@ -456,7 +477,7 @@ function openRespostaModal(idx) {
     }
 }
 
-// Expor funções
+// EXPOR FUNÇÕES E TAMBÉM OS ELEMENTOS DE MODAL SE NECESSÁRIO PARA OUTROS SCRIPTS
 window.modalModule = {
     init: initModalElements,
     setupModalCloseEvents,
@@ -469,6 +490,11 @@ window.modalModule = {
     setupFilterModal,
     setupMobileButton,
     setupRespostaModal,
-    openRespostaModal, // Expor para ser chamado pelos cards de incidente
-    closeModal
+    openRespostaModal,
+    openModal,
+    closeModal,
+    // *** ADIÇÃO CRÍTICA AQUI: Expor os elementos de modal para perfil.js ***
+    modalEditName, // Exponha a referência do elemento
+    modalChangePassword // Exponha a referência do elemento
+    // *** FIM DAS ADIÇÕES CRÍTICAS ***
 };

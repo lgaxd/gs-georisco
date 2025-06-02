@@ -1,45 +1,74 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // É crucial que o authModule seja inicializado primeiro, pois outros módulos dependem dele.
-    // Embora o auth.js já se exponha globalmente, é bom ter certeza que está acessível.
-    // Nenhuma inicialização explícita é necessária para auth.js, apenas a inclusão no HTML.
+// script-principal.js
 
-    // Inicializar módulos de utilidades
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Inicializar módulos base (utils, auth)
     if (window.utilsModule) {
         window.utilsModule.initStorage();
     }
+    // window.authModule não precisa de init(), ele já expõe as funções diretamente.
 
-    // Inicializar módulos de elementos DOM e eventos
-    if (window.sidebarModule) {
-        window.sidebarModule.init();
-        window.sidebarModule.setupSidebar();
-        window.sidebarModule.setupProfileDropdown();
+    // 2. Inicializar Sidebar
+    if (window.setupSidebar) {
+        window.setupSidebar();
+    }
+    if (window.setupProfileDropdown) {
+        window.setupProfileDropdown();
     }
 
-    if (window.incidentesModule) {
-        window.incidentesModule.init(); // Inicializa elementos DOM e listener de busca
-    }
-
-    // O módulo resposta.js já se expõe globalmente, não precisa de init().
-
+    // 3. Inicializar o modal.js e seus eventos
     if (window.modalModule) {
-        window.modalModule.init(); // Inicializa elementos DOM de modais
+        window.modalModule.init();
         window.modalModule.setupModalCloseEvents();
         window.modalModule.setupEscClose();
+
+        // Configurações específicas de outros modais
         window.modalModule.setupIncidenteModal();
         window.modalModule.setupImgModal();
         window.modalModule.setupPostModal();
+        window.modalModule.setupRespostaModal();
         window.modalModule.setupFilterModal();
         window.modalModule.setupMobileButton();
-        window.modalModule.setupRespostaModal(); // Configura o formulário de resposta
     }
 
-    // Renderização inicial e população de dados após todos os módulos estarem prontos
-    // Um pequeno timeout para garantir que todos os elementos estejam no DOM e módulos inicializados
-    setTimeout(() => {
-        if (window.incidentesModule) {
+    // 4. Inicializar o módulo de incidentes (apenas na página principal)
+    if (window.incidentesModule) {
+        if (!window.location.pathname.includes('/pages/perfil.html')) {
+            window.incidentesModule.init(); // Se incidentes.js tiver um init()
             window.incidentesModule.populateAutocomplete();
             window.incidentesModule.populateFilterBairros();
             window.incidentesModule.renderIncidentes();
         }
-    }, 100);
+    }
+
+    // 5. Inicializar o módulo de perfil (APENAS se estiver na página de perfil)
+    if (window.location.pathname.includes('/pages/perfil.html')) {
+        // Agora, authModule deve estar disponível por causa da ordem no HTML
+        if (window.perfilModule && window.perfilModule.init) {
+            window.perfilModule.init();
+        } else {
+            console.error("Erro: perfilModule ou sua função init não está disponível na página de perfil.");
+        }
+    }
+    
+    // 6. Inicializar módulo de contato/formulário (se aplicável)
+    // Verifique se você usa contato.js ou formulario.js e mantenha apenas um.
+    // Ajuste o nome da pasta e do módulo conforme o que você manteve.
+    if (window.location.pathname.includes('/pages/contato.html')) { // OU '/pages/formulario.html'
+         if (window.contatoModule && window.contatoModule.init) { // OU window.formularioModule
+             window.contatoModule.init(); // OU window.formularioModule.init()
+         } else {
+             console.warn("Módulo de Contato/Formulário não encontrado para inicialização.");
+         }
+    }
+
+
+    // 7. Configurar evento de busca (se aplicável, geralmente na página principal)
+    const searchInput = document.getElementById("search-bairro");
+    if (searchInput) {
+        searchInput.addEventListener("input", () => {
+            if (window.incidentesModule) {
+                window.incidentesModule.renderIncidentes(searchInput.value);
+            }
+        });
+    }
 });

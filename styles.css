@@ -1019,3 +1019,203 @@ button:hover {
     margin-top: 10px;
     margin-bottom: 10px; /* Adicionado para separar as ações das respostas */
 }
+
+.faq-item {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.faq-item summary {
+  font-weight: 600;
+  font-size: 1.1rem;
+  outline: none;
+}
+
+.faq-item p {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  color: #444;
+}
+
+.login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--color-jet);
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .login-container input,
+        .login-container select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--gray-border);
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--color-jonquil);
+            color: var(--color-night);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .login-container button:hover {
+            background: var(--color-selecty);
+        }
+
+        /* Contêiner principal da página de perfil */
+.main-content-perfil {
+    padding: 2rem;
+    max-width: 700px; /* Largura um pouco menor que o FAQ */
+    margin: 80px auto 2rem auto; /* Margem superior para o header fixo */
+    color: var(--color-jet);
+}
+
+/* Título da página */
+.main-content-perfil h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-night);
+    font-size: 2.2em;
+    font-weight: 600;
+}
+
+/* Card de informações do perfil */
+.profile-card {
+    background-color: #ffffff;
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Informações do perfil (nome, email, perfil) */
+.profile-info p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.profile-info p strong {
+    color: var(--color-night);
+    margin-right: 5px;
+}
+
+/* Ações do perfil (botões) */
+.profile-actions {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--gray-border);
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+    gap: 15px; /* Espaçamento entre os botões */
+    justify-content: center; /* Centraliza os botões */
+}
+
+/* Estilos para os botões (reaproveitar estilos existentes ou criar novos) */
+/* btn-primary e btn-secondary devem vir do seu styles.css já existente */
+.btn-primary {
+    background-color: var(--color-selecty);
+    color: var(--color-jet);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Para caso seja usado em <a> */
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-jonquil);
+}
+
+.btn-secondary {
+    background-color: #e0e0e0; /* Um cinza mais claro */
+    color: var(--color-jet);
+    border: 1px solid #c0c0c0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: #d0d0d0;
+    border-color: #b0b0b0;
+}
+
+/* Estilos para o formulário dentro dos modais de perfil (reaproveitando .form-group) */
+.modal-content h2 {
+    text-align: center;
+    color: var(--color-night);
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.modal-content .form-group {
+    margin-bottom: 20px;
+}
+
+.modal-content .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-jet);
+}
+
+.modal-content .form-group input[type="text"],
+.modal-content .form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--gray-border);
+    border-radius: 5px;
+    font-size: 1em;
+    color: var(--color-jet);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content .form-group input[type="text"]:focus,
+.modal-content .form-group input[type="password"]:focus {
+    border-color: var(--color-selecty);
+    box-shadow: 0 0 0 3px rgba(255, 183, 0, 0.2);
+    outline: none;
+}
+
+.modal-content button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 5px;
+    /* Usa os estilos de .btn-primary */
+}

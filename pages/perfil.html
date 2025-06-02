@@ -1,11 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Meu Perfil - GeoRisco</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
+
 <body>
-    
+    <nav class="sidebar">
+        <div class="sidebar-inner">
+            <button class="btn-close-sidebar" aria-label="Fechar menu">&times;</button>
+            <ul>
+                <li><span>01</span> <a href="/index.html">Incidentes</a></li>
+                <li><span>02</span> <a href="/pages/mapa.html">Mapa</a></li>
+                <li><span>03</span> <a href="/pages/perfil.html">Perfil</a></li>
+                <li><span>04</span> <a href="/pages/registros.html">Meus Registros</a></li>
+                <li><span>05</span> <a href="/pages/contato.html">Contato</a></li>
+                <li><span>06</span> <a href="/pages/perguntas.html">Perguntas</a></li>
+                <li><span>07</span> <a href="/pages/desenvolvedores.html">Desenvolvedores</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="overlay"></div>
+
+    <header class="header">
+        <button class="icon-btn menu-btn btn-menu" aria-label="Abrir menu">
+            <img src="/images/menu.png" alt="Abrir menu" class="menu-icon" />
+        </button>
+        <a href="/" class="site-title">
+            <img src="/images/GeoRisco_logo_principal.png" alt="GeoRisco" class="logo-img" />
+        </a>
+        <div class="profile-container">
+            <button class="profile-btn btn-profile" aria-label="Perfil">
+                <img src="/images/icone-user.png" alt="Usuário" />
+            </button>
+            <ul class="dropdown profile-dropdown">
+                <li><a href="/pages/login.html">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="main-content-perfil">
+        <h1>Meu Perfil</h1>
+
+        <div class="profile-card">
+            <div class="profile-info">
+                <p><strong>Nome:</strong> <span id="profile-name">Carregando...</span></p>
+                <p><strong>E-mail:</strong> <span id="profile-email">Carregando...</span></p>
+                <p><strong>Perfil:</strong> <span id="profile-role">Carregando...</span></p>
+            </div>
+
+            <div class="profile-actions">
+                <button id="btn-edit-name" class="btn-secondary">Editar Nome</button>
+                <button id="btn-change-password" class="btn-secondary">Mudar Senha</button>
+                <button id="btn-logout" class="btn-primary">Sair</button>
+            </div>
+
+            <div id="modal-edit-name" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close" id="modal-edit-name-close">&times;</span>
+                    <h3>Editar Nome</h3>
+                    <form id="form-edit-name">
+                        <label for="new-name">Novo Nome:</label>
+                        <input type="text" id="new-name" required>
+                        <button type="submit" class="btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="modal-change-password" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close" id="modal-change-password-close">&times;</span>
+                    <h3>Mudar Senha</h3>
+                    <form id="form-change-password">
+                        <label for="current-password">Senha Atual:</label>
+                        <input type="password" id="current-password" required>
+                        <label for="new-password">Nova Senha:</label>
+                        <input type="password" id="new-password" required>
+                        <label for="confirm-new-password">Confirmar Nova Senha:</label>
+                        <input type="password" id="confirm-new-password" required>
+                        <button type="submit" class="btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/scripts/auth.js"></script>
+    <script src="/scripts/utils.js"></script>
+    <script src="/scripts/sidebar.js"></script>
+    <script src="/scripts/modal.js"></script>
+    <script src="/scripts/perfil.js"></script>
+    <script src="/scripts/script-principal.js"></script>
 </body>
+</body>
+
 </html>
