@@ -29,7 +29,7 @@ function logout() {
 function exigirLoginAcao() {
     if (!estaLogado()) {
         alert("Você precisa fazer login para executar esta ação.");
-        window.location.href = "/pages/login.html";
+        window.location.href = "login.html";
         return false;
     }
     return true;

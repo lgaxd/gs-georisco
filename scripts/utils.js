@@ -1,5 +1,3 @@
-// utils.js
-
 /**
  * Carrega exemplos de incidentes no localStorage se não houver dados.
  */
@@ -8,7 +6,7 @@ function carregarExemplos() {
         {
             titulo: 'Árvore na Rua Gomes de Carvalho',
             descricao: 'Uma grande árvore está com o tronco rachado.',
-            imagens: ['/images/arvore.jpg'],
+            imagens: ['images/arvore.jpg'],
             cidade: 'São Paulo',
             bairro: 'Moema',
             data: new Date().toLocaleString('pt-BR'),
@@ -18,7 +16,7 @@ function carregarExemplos() {
         {
             titulo: 'Buraco gigante na Rua Tabatinguera',
             descricao: 'Asfalto cedeu após chuva forte.',
-            imagens: ['/images/buraco.jpg'],
+            imagens: ['images/buraco.jpg'],
             cidade: 'São Paulo',
             bairro: 'Sé',
             data: new Date().toLocaleString('pt-BR'),
@@ -28,7 +26,7 @@ function carregarExemplos() {
         {
             titulo: 'Deslizamento de terra na Rua Girassol',
             descricao: 'Barro escorreu sobre a via.',
-            imagens: ['/images/deslizamento.png'],
+            imagens: ['images/deslizamento.png'],
             cidade: 'São Paulo',
             bairro: 'Vila Madalena',
             data: new Date().toLocaleString('pt-BR'),
@@ -38,7 +36,7 @@ function carregarExemplos() {
         {
             titulo: 'Poste torto na Rua Iguatemi',
             descricao: 'Poste de luz inclinado após vento forte.',
-            imagens: ['/images/poste.jpg'],
+            imagens: ['images/poste.jpg'],
             cidade: 'São Paulo',
             bairro: 'Itaim Bibi',
             data: new Date().toLocaleString('pt-BR'),

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. Inicializar o módulo de incidentes (apenas na página principal)
     if (window.incidentesModule) {
-        if (!window.location.pathname.includes('/pages/perfil.html')) {
+        if (!window.location.pathname.includes('perfil.html')) {
             window.incidentesModule.init(); // Se incidentes.js tiver um init()
             window.incidentesModule.populateAutocomplete();
             window.incidentesModule.populateFilterBairros();
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 5. Inicializar o módulo de perfil (APENAS se estiver na página de perfil)
-    if (window.location.pathname.includes('/pages/perfil.html')) {
+    if (window.location.pathname.includes('perfil.html')) {
         // Agora, authModule deve estar disponível por causa da ordem no HTML
         if (window.perfilModule && window.perfilModule.init) {
             window.perfilModule.init();
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 6. Inicializar módulo de contato/formulário (se aplicável)
     // Verifique se você usa contato.js ou formulario.js e mantenha apenas um.
     // Ajuste o nome da pasta e do módulo conforme o que você manteve.
-    if (window.location.pathname.includes('/pages/contato.html')) { // OU '/pages/formulario.html'
+    if (window.location.pathname.includes('contato.html')) { // OU 'formulario.html'
         if (window.contatoModule && window.contatoModule.init) { // OU window.formularioModule
             window.contatoModule.init(); // OU window.formularioModule.init()
         } else {
@@ -72,9 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnNotifications = document.getElementById("btn-notifications");
     if (btnNotifications) {
-        btnNotifications.addEventListener("click", () => {
-            // Redireciona para a página de notificações
-            window.location.href = "/pages/notificacoes.html";
+        btnNotifications.addEventListener('click', () => {
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!window.authModule || !window.authModule.estaLogado()) {
+                alert("Você precisa estar logado para ver suas notificações.");
+                window.location.href = 'login.html';
+            } else {
+                window.location.href = 'notificacoes.html';
+            }
         });
     }
 

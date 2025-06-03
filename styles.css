@@ -337,15 +337,28 @@ main {
 /* Modal (genérico, usado pelo filtro, registro e lightbox) */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
     display: none;
-    align-items: center;
     justify-content: center;
-    z-index: 20;
+    align-items: flex-start;
+    overflow-y: auto;
+    /* rolagem da página no modal */
+    padding: 2rem 1rem;
+    z-index: 1000;
+}
+
+.post-modal-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: visible;
+    /* muito importante */
 }
 
 .modal-content {
@@ -661,33 +674,44 @@ button:hover {
 /* ===================================
      Modal de post + comentários (Twitter)
      =================================== */
+
 .post-modal-content {
     background: #fff;
-    padding: 1rem;
     border-radius: 8px;
-    width: 90%;
+    width: 100%;
     max-width: 500px;
-    max-height: 90vh;
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.post-comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+}
+
+
 #post-details {
-    flex: 0 0 auto;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
 }
 
 #post-comments {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    margin: 0.5rem 0;
-    border-top: 1px solid #ddd;
-    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0;
 }
 
 .post-comment-item {
-    margin-bottom: 0.5rem;
+    background: #f9f9f9;
+    padding: 0.5rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
+
 
 .post-comment-item small {
     font-size: 0.8rem;
@@ -697,6 +721,9 @@ button:hover {
 #post-comment-form {
     display: flex;
     gap: 0.5rem;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
 }
 
 #post-comment-input {
@@ -1215,21 +1242,28 @@ details:hover {
 }
 
 /* Adicione ou modifique esta regra para o main da página de perfil */
-main.main-content-perfil { /* Use o seletor de classe para maior especificidade */
+main.main-content-perfil {
+    /* Use o seletor de classe para maior especificidade */
     padding: 2rem;
     max-width: 700px;
     /* Defina as margens para o estado normal, com o topo ajustado para o header fixo */
-    margin-top: 80px; /* Margem superior para o header fixo */
-    margin-bottom: 2rem; /* Margem inferior */
-    margin-left: auto; /* Mantém auto para centralizar horizontalmente quando a sidebar estiver fechada */
-    margin-right: auto; /* Mantém auto para centralizar horizontalmente quando a sidebar estiver fechada */
+    margin-top: 80px;
+    /* Margem superior para o header fixo */
+    margin-bottom: 2rem;
+    /* Margem inferior */
+    margin-left: auto;
+    /* Mantém auto para centralizar horizontalmente quando a sidebar estiver fechada */
+    margin-right: auto;
+    /* Mantém auto para centralizar horizontalmente quando a sidebar estiver fechada */
     color: var(--color-jet);
-    transition: margin-left 0.3s ease; /* Adicione a transição aqui também */
+    transition: margin-left 0.3s ease;
+    /* Adicione a transição aqui também */
 }
 
 /* Regra para quando a sidebar estiver aberta, agora com especificidade para o main.main-content-perfil */
-nav.sidebar.open ~ main {
-    margin-left: auto; /* Este agora deve sobrescrever o 'auto' */
+nav.sidebar.open~main {
+    margin-left: auto;
+    /* Este agora deve sobrescrever o 'auto' */
     margin-right: auto;
 }
 
@@ -1247,7 +1281,8 @@ header {
     justify-content: space-between;
     padding: 0 .75rem;
     z-index: 9;
-    transition: margin-left 0.3s ease, width 0.3s ease; /* Adicione transição */
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    /* Adicione transição */
 }
 
 #post-modal-close {
@@ -1268,10 +1303,14 @@ header {
 
 /* Estilo do profile-container para acomodar múltiplos botões */
 .profile-container {
-    display: flex; /* Para que os itens dentro dele (notificação e perfil) fiquem lado a lado */
-    align-items: center; /* Alinha verticalmente no centro */
-    gap: 10px; /* Espaçamento entre os botões de notificação e perfil */
-    position: relative; /* Importante para o posicionamento do dropdown */
+    display: flex;
+    /* Para que os itens dentro dele (notificação e perfil) fiquem lado a lado */
+    align-items: center;
+    /* Alinha verticalmente no centro */
+    gap: 10px;
+    /* Espaçamento entre os botões de notificação e perfil */
+    position: relative;
+    /* Importante para o posicionamento do dropdown */
 }
 
 /* Estilo para os botões de ícone dentro do header (menu, filtro, notificação, perfil) */
@@ -1281,25 +1320,34 @@ header {
     border: none;
     cursor: pointer;
     padding: 0;
-    display: flex; /* Para centralizar a imagem dentro do botão */
+    display: flex;
+    /* Para centralizar a imagem dentro do botão */
     align-items: center;
     justify-content: center;
-    height: 40px; /* Altura padrão para botões de ícone no header */
-    width: 40px;  /* Largura padrão */
-    border-radius: 50%; /* Para botões circulares, se desejar */
+    height: 40px;
+    /* Altura padrão para botões de ícone no header */
+    width: 40px;
+    /* Largura padrão */
+    border-radius: 50%;
+    /* Para botões circulares, se desejar */
 }
 
 .header .icon-btn:hover {
-    background-color: var(--color-jonquil); /* Exemplo de hover */
+    background-color: var(--color-jonquil);
+    /* Exemplo de hover */
 }
 
 /* Estilo específico para o ícone de notificação */
 .notification-icon {
-    width: 24px; /* Ajuste o tamanho conforme necessário */
-    height: 24px; /* Ajuste o tamanho conforme necessário */
-    display: block; /* Remove espaçamento extra da imagem */
+    width: 24px;
+    /* Ajuste o tamanho conforme necessário */
+    height: 24px;
+    /* Ajuste o tamanho conforme necessário */
+    display: block;
+    /* Remove espaçamento extra da imagem */
     background-color: var(--color-jonquil);
-    border-radius: 50%; /* Para um ícone circular */
+    border-radius: 50%;
+    /* Para um ícone circular */
 }
 
 /* ===========================
@@ -1309,13 +1357,18 @@ header {
 /* Estilo para o contêiner principal do conteúdo da página de notificações */
 .main-content-notifications {
     padding: 2rem;
-    max-width: 800px; /* Limite a largura para melhor legibilidade */
-    margin-top: 80px; /* Espaço do cabeçalho fixo */
+    max-width: 800px;
+    /* Limite a largura para melhor legibilidade */
+    margin-top: 80px;
+    /* Espaço do cabeçalho fixo */
     margin-bottom: 2rem;
-    margin-left: auto; /* Centraliza horizontalmente */
-    margin-right: auto; /* Centraliza horizontalmente */
+    margin-left: auto;
+    /* Centraliza horizontalmente */
+    margin-right: auto;
+    /* Centraliza horizontalmente */
     color: var(--color-jet);
-    transition: margin-left 0.3s ease; /* Para acompanhar o movimento da sidebar */
+    transition: margin-left 0.3s ease;
+    /* Para acompanhar o movimento da sidebar */
 }
 
 /* Título da página de notificações */
@@ -1332,7 +1385,8 @@ header {
 .notifications-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* Espaçamento entre os itens de notificação */
+    gap: 1rem;
+    /* Espaçamento entre os itens de notificação */
 }
 
 /* Item individual de notificação */
@@ -1346,14 +1400,17 @@ header {
 }
 
 .notification-item:hover {
-    transform: translateY(-3px); /* Efeito de "levantar" ao passar o mouse */
+    transform: translateY(-3px);
+    /* Efeito de "levantar" ao passar o mouse */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo para notificações não lidas */
 .notification-item.unread {
-    border-left: 5px solid var(--color-selecty); /* Destaque na borda esquerda */
-    background-color: #fffbe6; /* Um fundo levemente amarelado para destacar */
+    border-left: 5px solid var(--color-selecty);
+    /* Destaque na borda esquerda */
+    background-color: #fffbe6;
+    /* Um fundo levemente amarelado para destacar */
 }
 
 /* Cabeçalho da notificação (título e data) */
@@ -1369,15 +1426,18 @@ header {
     font-size: 1.1rem;
     color: var(--color-blackol);
     margin: 0;
-    flex-grow: 1; /* Permite que o título ocupe o espaço disponível */
+    flex-grow: 1;
+    /* Permite que o título ocupe o espaço disponível */
 }
 
 /* Data/timestamp da notificação */
 .notification-date {
     font-size: 0.85rem;
     color: #888;
-    white-space: nowrap; /* Evita que a data quebre a linha */
-    margin-left: 1rem; /* Espaçamento entre o título e a data */
+    white-space: nowrap;
+    /* Evita que a data quebre a linha */
+    margin-left: 1rem;
+    /* Espaçamento entre o título e a data */
 }
 
 /* Mensagem da notificação */
@@ -1390,7 +1450,8 @@ header {
 
 /* Link "Ver Incidente" */
 .notification-link {
-    display: inline-block; /* Permite espaçamento e outras propriedades */
+    display: inline-block;
+    /* Permite espaçamento e outras propriedades */
     background-color: var(--color-jonquil);
     color: var(--color-night);
     padding: 0.5rem 1rem;
@@ -1417,8 +1478,10 @@ header {
 /* RESPONSIVIDADE (para telas menores) */
 @media (max-width: 768px) {
     .main-content-notifications {
-        padding: 1rem; /* Reduz padding em telas menores */
-        margin-top: 60px; /* Ajusta se o header for menor em mobile */
+        padding: 1rem;
+        /* Reduz padding em telas menores */
+        margin-top: 60px;
+        /* Ajusta se o header for menor em mobile */
     }
 
     .notifications-section h1 {
@@ -1431,7 +1494,8 @@ header {
     }
 
     .notification-header {
-        flex-direction: column; /* Empilha título e data em telas pequenas */
+        flex-direction: column;
+        /* Empilha título e data em telas pequenas */
         align-items: flex-start;
     }
 
@@ -1449,8 +1513,13 @@ header {
     }
 
     .notification-link {
-        width: 100%; /* Botão ocupa largura total */
+        width: 100%;
+        /* Botão ocupa largura total */
         text-align: center;
         margin-top: 1rem;
     }
+}
+
+body.modal-open {
+    overflow: hidden;
 }

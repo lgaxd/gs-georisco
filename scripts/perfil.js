@@ -1,5 +1,3 @@
-// scripts/perfil.js
-
 // Elementos DOM (NÃO DECLARAR OS MODAIS AQUI, ELES SÃO DO modal.js)
 let profileNameSpan;
 let profileEmailSpan;
@@ -63,7 +61,7 @@ function populateProfileInfo() {
 
     } else {
         alert("Você precisa estar logado para ver seu perfil.");
-        window.location.href = "/pages/login.html";
+        window.location.href = "login.html";
     }
 }
 
@@ -153,7 +151,7 @@ function setupPerfilEvents() {
             if (confirm("Tem certeza que deseja sair?")) {
                 window.authModule.logout(); // Usar a função de logout do authModule
                 alert("Você foi desconectado.");
-                window.location.href = "/pages/login.html";
+                window.location.href = "login.html";
             }
         });
     } else {

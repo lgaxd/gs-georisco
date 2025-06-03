@@ -95,7 +95,9 @@ function openModal(modalElement) {
     if (modalElement) { // Verifique se o elemento não é null
         modalElement.style.display = 'flex'; // ou 'block', dependendo do seu CSS
         // Adiciona a classe 'modal-open' ao body para desabilitar o scroll
-        document.body.classList.add('modal-open');
+        if (!modalElement.classList.contains('modal-no-lock')) {
+            document.body.classList.add('modal-open');
+        }
     } else {
         console.error("openModal: Elemento modal é null ou indefinido.");
     }

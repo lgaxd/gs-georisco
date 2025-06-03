@@ -133,7 +133,7 @@ function renderIncidentes(filtroTexto = '') {
                 </div>
             <div class="card-actions">
                 <button class="btn-comentar" data-idx="${i}" title="Ver comentários">
-                    <img src="/images/comentario.png" alt="Comentários" class="icon-comentario" />
+                    <img src="images/comentario.png" alt="Comentários" class="icon-comentario" />
                 </button>
                 ${btnResponderHTML}
             </div>

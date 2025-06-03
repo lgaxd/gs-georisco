@@ -15,5 +15,5 @@ document.getElementById("login-form")?.addEventListener("submit", function (e) {
     alert("Login feito com sucesso!");
 
     // Redireciona para a página principal (incidentes)
-    window.location.href = "/index.html";
+    window.location.href = "index.html";
 });
