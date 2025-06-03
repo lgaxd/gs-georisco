@@ -10,6 +10,9 @@ function carregarExemplos() {
             cidade: 'São Paulo',
             bairro: 'Moema',
             data: new Date().toLocaleString('pt-BR'),
+            tipo: 'Queda de Árvore',
+            gravidade: 'Risco Potencial',
+            status: 'Pendente',
             comentarios: [],
             respostas: []
         },
@@ -20,6 +23,9 @@ function carregarExemplos() {
             cidade: 'São Paulo',
             bairro: 'Sé',
             data: new Date().toLocaleString('pt-BR'),
+            tipo: 'Buraco na via',
+            gravidade: 'Risco Moderado',
+            status: 'Pendente',
             comentarios: [],
             respostas: []
         },
@@ -30,6 +36,9 @@ function carregarExemplos() {
             cidade: 'São Paulo',
             bairro: 'Vila Madalena',
             data: new Date().toLocaleString('pt-BR'),
+            tipo: 'Deslizamento',
+            gravidade: 'Risco Crítico',
+            status: 'Pendente',
             comentarios: [],
             respostas: []
         },
@@ -40,6 +49,9 @@ function carregarExemplos() {
             cidade: 'São Paulo',
             bairro: 'Itaim Bibi',
             data: new Date().toLocaleString('pt-BR'),
+            tipo: 'Poste Danificado',
+            gravidade: 'Risco Potencial',
+            status: 'Pendente',
             comentarios: [],
             respostas: []
         },
@@ -100,8 +112,11 @@ function salvarIncidentes(incidentes) {
  * @param {Array<string>} imagensArray URLs ou Base64 das imagens.
  * @param {string} cidade
  * @param {string} bairro
+ * @param {string} [tipo] Classificação do tipo do incidente
+ * @param {string} [gravidade] Classificação de gravidade
+ * @param {string} [status] Status atual do incidente
  */
-function adicionarIncidente(titulo, descricao, imagensArray, cidade, bairro) {
+function adicionarIncidente(titulo, descricao, imagensArray, cidade, bairro, tipo = '', gravidade = '', status = 'Pendente') {
     const arr = getIncidentes();
     arr.push({
         titulo,
@@ -109,6 +124,9 @@ function adicionarIncidente(titulo, descricao, imagensArray, cidade, bairro) {
         imagens: imagensArray,
         cidade,
         bairro,
+        tipo,
+        gravidade,
+        status,
         data: new Date().toLocaleString('pt-BR'),
         comentarios: [],
         respostas: []
@@ -130,7 +148,6 @@ function adicionarComentario(idx, texto) {
     } else {
         console.error(`Incidente com índice ${idx} não encontrado para adicionar comentário.`);
     }
-    // As renderizações serão feitas pelo módulo de incidentes, não aqui diretamente
 }
 
 /**
@@ -156,5 +173,5 @@ window.utilsModule = {
     salvarIncidentes,
     adicionarIncidente,
     adicionarComentario,
-    adicionarResposta // Nova função exposta
+    adicionarResposta
 };

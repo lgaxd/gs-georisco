@@ -91,7 +91,20 @@ function renderIncidentes(filtroTexto = '') {
                 + `</div>`;
         }
 
-        // --- ALTERAÇÃO AQUI: BOTÃO DE RESPOSTA ---
+        // --- Badges de classificação ---
+        const tipo = inc.tipo || 'Tipo indefinido';
+        const gravidade = inc.gravidade || 'Sem gravidade';
+        const status = inc.status || 'Pendente';
+
+        const classificacoesHTML = `
+            <div class="classificacoes">
+                <span class="badge gravidade ${gravidade.toLowerCase().replace(' ', '-')}">${gravidade}</span>
+                <span class="badge tipo">${tipo}</span>
+                <span class="status-label">${status}</span>
+            </div>
+        `;
+
+        // --- Botão de resposta ---
         let btnResponderHTML = '';
         if (perfilUsuario === 'moderador' || perfilUsuario === 'autoridade') {
             btnResponderHTML = `
@@ -99,9 +112,8 @@ function renderIncidentes(filtroTexto = '') {
                     Adicionar Resposta
                 </button>`;
         }
-        // --- FIM DA ALTERAÇÃO ---
 
-        // --- SEÇÃO PARA RENDERIZAR RESPOSTAS ---
+        // --- Seção de respostas ---
         let respostasHTML = '';
         if (inc.respostas && inc.respostas.length > 0) {
             respostasHTML = `
@@ -116,8 +128,6 @@ function renderIncidentes(filtroTexto = '') {
                 </div>
             `;
         }
-        // --- FIM DA SEÇÃO ---
-
 
         const card = document.createElement('div');
         card.className = 'card-incidente';
@@ -130,21 +140,23 @@ function renderIncidentes(filtroTexto = '') {
             <div class="info-linha">
                 <small>${inc.data}</small>
                 <span class="comentario-count">${inc.comentarios.length} comentário(s)</span>
-                </div>
+            </div>
+            ${classificacoesHTML}
             <div class="card-actions">
                 <button class="btn-comentar" data-idx="${i}" title="Ver comentários">
                     <img src="images/comentario.png" alt="Comentários" class="icon-comentario" />
                 </button>
                 ${btnResponderHTML}
             </div>
-            ${respostasHTML} `;
+            ${respostasHTML}
+        `;
+
         incidentesContainer.appendChild(card);
     });
 
-    // Reassocia eventos após a renderização
-    associarEventosComentarios(); // This function already handles general comment buttons
-    // Associa eventos para o novo botão de responder
-    incidentesContainer.querySelectorAll('.btn-resposta').forEach(btn => { // Changed selector to .btn-resposta
+    associarEventosComentarios();
+
+    incidentesContainer.querySelectorAll('.btn-resposta').forEach(btn => {
         btn.addEventListener('click', e => {
             const idx = Number(btn.dataset.idx);
             if (window.modalModule && window.modalModule.openRespostaModal) {

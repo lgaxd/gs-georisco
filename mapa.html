@@ -1,11 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa - GeoRisco</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
+
 <body>
-    
+    <nav class="sidebar">
+        <div class="sidebar-inner">
+            <button class="btn-close-sidebar" aria-label="Fechar menu">&times;</button>
+            <ul>
+                <li><span>01</span> <a href="index.html">Incidentes</a></li>
+                <li><span>02</span> <a href="mapa.html">Mapa</a></li>
+                <li><span>03</span> <a href="perfil.html">Perfil</a></li>
+                <li><span>04</span> <a href="registros.html">Meus Registros</a></li>
+                <li><span>05</span> <a href="contato.html">Contato</a></li>
+                <li><span>06</span> <a href="perguntas.html">Perguntas</a></li>
+                <li><span>07</span> <a href="desenvolvedores.html">Desenvolvedores</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="overlay"></div>
+
+    <header class="header">
+        <button class="icon-btn menu-btn btn-menu" aria-label="Abrir menu">
+            <img src="images/menu.png" alt="Abrir menu" class="menu-icon" />
+        </button>
+        <a href="index.html" class="site-title">
+            <img src="images/GeoRisco_logo_principal.png" alt="GeoRisco" class="logo-img" />
+        </a>
+
+        <div class="profile-container">
+            <button id="btn-notifications" class="notification-btn icon-btn" aria-label="Notificações">
+                <img src="images/notificacao.png" alt="Notificações" class="notification-icon" />
+            </button>
+            <button class="profile-btn btn-profile" aria-label="Perfil">
+                <img src="images/icone-user.png" alt="Usuário" />
+            </button>
+            <ul class="dropdown profile-dropdown">
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="mapa-main">
+        <h1 class="map-title">Mapa de Incidentes</h1>
+        <div id="map"></div>
+    </main>
+
+    <script>
+        // Inicializa o mapa
+        const map = L.map('map').setView([-23.5505, -46.6333], 12); // São Paulo por padrão
+
+        // Adiciona o tile base
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Exemplo de marcador (pode ser substituído com dados reais do localStorage)
+        L.marker([-23.5505, -46.6333]).addTo(map)
+            .bindPopup('<strong>Incidente:</strong> Enchente<br><em>Rua das Águas</em>');
+
+        L.marker([-23.563867926301587, -46.65242942008335]).addTo(map)
+            .bindPopup('<strong>Incidente:</strong> Chuva forte<br><em>FIAP Paulista</em>');
+
+    </script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="scripts/incidentes.js"></script>
+    <script src="scripts/resposta.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/script-principal.js"></script>
 </body>
+
 </html>

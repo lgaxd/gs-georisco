@@ -83,4 +83,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const btnMinhas = document.getElementById("btn-minhas");
+    if (btnMinhas) {
+        btnMinhas.addEventListener('click', () => {
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!window.authModule || !window.authModule.estaLogado()) {
+                alert("Você precisa estar logado para ver seus registros.");
+                window.location.href = 'login.html';
+            } else {
+                window.location.href = 'registros.html';
+            }
+        });
+    }
+
+    document.querySelectorAll(".btn-ver").forEach(btn => {
+        btn.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    });
+
 });
